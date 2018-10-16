@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My notes</title>
-    <link>http://localhost:1313/post/</link>
+    <link>https://csu-fangjun.github.io/post/</link>
     <description>Recent content in Posts on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 16 Oct 2018 17:16:33 +0800</lastBuildDate>
     
-	<atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://csu-fangjun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Learn Go Programming</title>
-      <link>http://localhost:1313/post/learning-go/</link>
+      <link>https://csu-fangjun.github.io/post/learning-go/</link>
       <pubDate>Tue, 16 Oct 2018 17:16:33 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/learning-go/</guid>
+      <guid>https://csu-fangjun.github.io/post/learning-go/</guid>
       <description></description>
     </item>
     
