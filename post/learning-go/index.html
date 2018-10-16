@@ -409,29 +409,35 @@ if (!doNotTrack) {
 
   
 
-  <div class="post bg-white">
-      <div id="comments-gitment"></div>
-      <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
-        <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
-      <script type="text/javascript">
-      const gitment = new Gitment({
-        id: 'learning-go.md',
-        title: 'Learn Go Programming',
-        link: decodeURI(location.href),
-        desc: ' TODO  Structure of a project Visibility of variables and functions How to define:\n variables constants enums (i.e., with iota) functions structures and its methods interfaces  Source code of predefined modules\n e.g.: log: https:\/\/github.com\/golang\/go\/tree\/master\/src\/log  \x26hellip;\n  ',
-        owner: 'csu-fangjun',
-        repo: 'comments',
-        oauth: {
-          client_id: '3347eedbe2dd947a0c5f',
-          client_secret: '9d0509d47b58992331e0a5f1dbe54aa4eb3542b2'
-        }
-      })
-      gitment.render('comments-gitment')
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
-    </div>
-
   
+
+  <div class="disqus-comment">
+  <div class="disqus-button" id="load_disqus" onclick="load_disqus()">
+    Show Disqus Comments
+  </div>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = "https://csu-fangjun.github.io/post/learning-go/";
+    };
+    function load_disqus() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'csu-fangjun';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+      $('#load_disqus').remove();
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+  
+  </div>
 
         </div>
       </div>
