@@ -18,7 +18,35 @@
       
       <guid>https://csu-fangjun.github.io/post/learning-go/</guid>
       
-        <description></description>
+        <description>
+
+&lt;h2 id=&#34;todo&#34;&gt;TODO&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Structure of a project&lt;/li&gt;
+&lt;li&gt;Visibility of variables and functions&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;How to define:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;variables&lt;/li&gt;
+&lt;li&gt;constants&lt;/li&gt;
+&lt;li&gt;enums (i.e., with &lt;code&gt;iota&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;functions&lt;/li&gt;
+&lt;li&gt;structures&lt;/li&gt;
+&lt;li&gt;and its methods&lt;/li&gt;
+&lt;li&gt;interfaces&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Source code of predefined modules&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;e.g.: &lt;code&gt;log&lt;/code&gt;: &lt;a href=&#34;https://github.com/golang/go/tree/master/src/log&#34;&gt;https://github.com/golang/go/tree/master/src/log&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&amp;hellip;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
       
     </item>
     

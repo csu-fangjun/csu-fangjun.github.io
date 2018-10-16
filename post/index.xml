@@ -17,7 +17,10 @@
       <pubDate>Tue, 16 Oct 2018 17:16:33 +0800</pubDate>
       
       <guid>https://csu-fangjun.github.io/post/learning-go/</guid>
-      <description></description>
+      <description> TODO  Structure of a project Visibility of variables and functions How to define:
+ variables constants enums (i.e., with iota) functions structures and its methods interfaces  Source code of predefined modules
+ e.g.: log: https://github.com/golang/go/tree/master/src/log  &amp;hellip;
+  </description>
     </item>
     
   </channel>
