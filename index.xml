@@ -24,6 +24,7 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/keysaim/blogs/blob/master/config.toml&#34;&gt;Sample config&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://themes.gohugo.io/theme/hugo-theme-jane/post/jane-theme-preview/&#34;&gt;Jane Theme Preview&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://keysaim.github.io/post/blog/deploy-hugo-blog-in-github.io/&#34;&gt;如何在github.io搭建Hugo博客站&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://keysaim.github.io/post/2017-08-16-how-to-add-comments/&#34;&gt;如何给自己的博客网站加入评论系统&lt;/a&gt;, &lt;a href=&#34;https://github.com/imsun/gitment&#34;&gt;gitment&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -43,30 +44,173 @@
 &lt;h2 id=&#34;todo&#34;&gt;TODO&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Structure of a project&lt;/li&gt;
-&lt;li&gt;Visibility of variables and functions&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;How to define:&lt;/p&gt;
+&lt;li&gt;How to write &lt;code&gt;hello world&lt;/code&gt; in go&lt;/li&gt;
+&lt;li&gt;Structure of a project
 
 &lt;ul&gt;
-&lt;li&gt;variables&lt;/li&gt;
-&lt;li&gt;constants&lt;/li&gt;
-&lt;li&gt;enums (i.e., with &lt;code&gt;iota&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;functions&lt;/li&gt;
-&lt;li&gt;structures&lt;/li&gt;
-&lt;li&gt;and its methods&lt;/li&gt;
-&lt;li&gt;interfaces&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;packages
 
-&lt;li&gt;&lt;p&gt;Source code of predefined modules&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;packet initilization function: &lt;code&gt;func init() {...}&lt;/code&gt; which is called automatically when it is imported by others (&lt;font color=&#34;red&#34;&gt;how many times is it called?&lt;/font&gt;)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Visibility of variables and functions&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;upper case (exported) vs. lower case&lt;/li&gt;
+&lt;li&gt;package level, function level&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;How to define:
+
+&lt;ul&gt;
+&lt;li&gt;variables
+
+&lt;ul&gt;
+&lt;li&gt;the special variable: &lt;code&gt;_&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;the initialization value for implicit initialization&lt;/li&gt;
+&lt;li&gt;primitive data types&lt;/li&gt;
+&lt;li&gt;short variable declaration&lt;/li&gt;
+&lt;li&gt;tuple assignment like python&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;new()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;constants
+
+&lt;ul&gt;
+&lt;li&gt;enums (i.e., with &lt;code&gt;iota&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;functions
+
+&lt;ul&gt;
+&lt;li&gt;it can be defined in any order in the same package&lt;/li&gt;
+&lt;li&gt;no need for forward declaration&lt;/li&gt;
+&lt;li&gt;the same goes to variables&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;structures
+
+&lt;ul&gt;
+&lt;li&gt;and its methods&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;maps&lt;/li&gt;
+&lt;li&gt;interfaces&lt;/li&gt;
+&lt;li&gt;arrays and slices&lt;/li&gt;
+&lt;li&gt;pointers
+
+&lt;ul&gt;
+&lt;li&gt;how to dereference&lt;/li&gt;
+&lt;li&gt;pointer arithmetic via &lt;code&gt;unsafe.Pointer()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;the nullptr is &lt;code&gt;nil&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;a pointer to a local variable can be returned which is very different from C/C++ because of the garbe collector in Go&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Source code of predefined modules
 
 &lt;ul&gt;
 &lt;li&gt;e.g.: &lt;code&gt;log&lt;/code&gt;: &lt;a href=&#34;https://github.com/golang/go/tree/master/src/log&#34;&gt;https://github.com/golang/go/tree/master/src/log&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;log&lt;/li&gt;
+&lt;li&gt;fmt&lt;/li&gt;
+&lt;li&gt;string&lt;/li&gt;
+&lt;li&gt;io&lt;/li&gt;
+&lt;li&gt;flag&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Naming conventions
 
-&lt;li&gt;&lt;p&gt;&amp;hellip;&lt;/p&gt;&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;camel case and visibility&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;How to print variables
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;fmt.Printf()&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;\n&lt;/code&gt;, &lt;code&gt;%T&lt;/code&gt;, &lt;code&gt;%v&lt;/code&gt;, &lt;code&gt;%d&lt;/code&gt;, &lt;code&gt;%s&lt;/code&gt;, &lt;code&gt;%c&lt;/code&gt;, &lt;code&gt;%b&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fmt.Println()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fmt.Print()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ol&gt;
-</description>
+
+&lt;h2 id=&#34;numerical-data-types&#34;&gt;Numerical Data Types&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Integers&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int8&lt;/code&gt;, &lt;code&gt;int16&lt;/code&gt;, &lt;code&gt;int32&lt;/code&gt;, &lt;code&gt;int64&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uint8&lt;/code&gt;, &lt;code&gt;uint16&lt;/code&gt;, &lt;code&gt;uint32&lt;/code&gt;, &lt;code&gt;uint64&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int&lt;/code&gt;, the compiler decides whether it is 32 or 64 bits&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uint&lt;/code&gt;, the compiler decides whether it is 32 or 64 bits&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rune&lt;/code&gt;, r(presentation) of (u)nicod(e) point, which is &lt;code&gt;uint32&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uintptr&lt;/code&gt;, the compiler decides its width which is at least able to store a pointer&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The following code is valid&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;rune&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int32&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;But the following are invalid and results in compile time error&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;rune&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;       &lt;span class=&#34;cm&#34;&gt;/* error, assign rune to int */&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int64&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;     &lt;span class=&#34;cm&#34;&gt;/* error, assign rune to int64 */&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int32&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;     &lt;span class=&#34;cm&#34;&gt;/* error, assign int to int32 */&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int64&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;     &lt;span class=&#34;cm&#34;&gt;/* error, assign int to int64 */&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;common-errors&#34;&gt;Common Errors&lt;/h2&gt;
+
+&lt;h3 id=&#34;name-equivalence-instead-of-structural-equivalence&#34;&gt;Name Equivalence instead of Structural Equivalence&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Int&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Int&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Since &lt;code&gt;a&lt;/code&gt; is of type &lt;code&gt;Int&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; is of type &lt;code&gt;int&lt;/code&gt;, the above assignment
+results in a compile time error:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;cannot use a (type Int) as type int in assignment&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;font color=&#34;red&#34;&gt;&lt;strong&gt;Note&lt;/strong&gt;:&lt;/font&gt; Both &lt;code&gt;a &amp;lt; b&lt;/code&gt; and &lt;code&gt;a*b&lt;/code&gt; are &lt;strong&gt;invalid&lt;/strong&gt;!&lt;/p&gt;
+
+&lt;p&gt;To fix the error, we can use explicit conversion from &lt;code&gt;Int&lt;/code&gt; to &lt;code&gt;int&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Int&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Int&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;/*&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;now&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;no&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;occurs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
       
     </item>
     

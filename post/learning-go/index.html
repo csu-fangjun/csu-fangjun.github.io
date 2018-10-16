@@ -25,10 +25,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="fangjun" />
-  <meta name="description" content=" TODO  Structure of a project Visibility of variables and functions How to define:
- variables constants enums (i.e., with iota) functions structures and its methods interfaces  Source code of predefined modules
- e.g.: log: https://github.com/golang/go/tree/master/src/log  &amp;hellip;
-  " />
+  <meta name="description" content="TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
+ upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i." />
 
   <meta name="keywords" content="notes, programming" />
 
@@ -61,34 +59,28 @@
 
 
 <meta property="og:title" content="Learn Go Programming" />
-<meta property="og:description" content=" TODO  Structure of a project Visibility of variables and functions How to define:
- variables constants enums (i.e., with iota) functions structures and its methods interfaces  Source code of predefined modules
- e.g.: log: https://github.com/golang/go/tree/master/src/log  &hellip;
-  " />
+<meta property="og:description" content="TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
+ upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://csu-fangjun.github.io/post/learning-go/" /><meta property="article:published_time" content="2018-10-16T17:16:33&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-16T17:16:33&#43;08:00"/>
 
 <meta itemprop="name" content="Learn Go Programming">
-<meta itemprop="description" content=" TODO  Structure of a project Visibility of variables and functions How to define:
- variables constants enums (i.e., with iota) functions structures and its methods interfaces  Source code of predefined modules
- e.g.: log: https://github.com/golang/go/tree/master/src/log  &hellip;
-  ">
+<meta itemprop="description" content="TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
+ upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i.">
 
 
 <meta itemprop="datePublished" content="2018-10-16T17:16:33&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-16T17:16:33&#43;08:00" />
-<meta itemprop="wordCount" content="34">
+<meta itemprop="wordCount" content="412">
 
 
 
 <meta itemprop="keywords" content="go,golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Learn Go Programming"/>
-<meta name="twitter:description" content=" TODO  Structure of a project Visibility of variables and functions How to define:
- variables constants enums (i.e., with iota) functions structures and its methods interfaces  Source code of predefined modules
- e.g.: log: https://github.com/golang/go/tree/master/src/log  &hellip;
-  "/>
+<meta name="twitter:description" content="TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
+ upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -301,7 +293,8 @@ if (!doNotTrack) {
             <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
             
           </div>
-        
+        <span class="more-meta"> 412 words </span>
+          <span class="more-meta"> 2 min read </span>
 
         
         
@@ -321,6 +314,11 @@ if (!doNotTrack) {
 <li>
 <ul>
 <li><a href="#todo">TODO</a></li>
+<li><a href="#numerical-data-types">Numerical Data Types</a></li>
+<li><a href="#common-errors">Common Errors</a>
+<ul>
+<li><a href="#name-equivalence-instead-of-structural-equivalence">Name Equivalence instead of Structural Equivalence</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -334,30 +332,173 @@ if (!doNotTrack) {
 <h2 id="todo">TODO</h2>
 
 <ol>
-<li>Structure of a project</li>
-<li>Visibility of variables and functions</li>
-
-<li><p>How to define:</p>
+<li>How to write <code>hello world</code> in go</li>
+<li>Structure of a project
 
 <ul>
-<li>variables</li>
-<li>constants</li>
-<li>enums (i.e., with <code>iota</code>)</li>
-<li>functions</li>
-<li>structures</li>
-<li>and its methods</li>
-<li>interfaces</li>
-</ul></li>
+<li>packages
 
-<li><p>Source code of predefined modules</p>
+<ul>
+<li>packet initilization function: <code>func init() {...}</code> which is called automatically when it is imported by others (<font color="red">how many times is it called?</font>)</li>
+</ul></li>
+</ul></li>
+<li>Visibility of variables and functions<br />
+
+<ul>
+<li>upper case (exported) vs. lower case</li>
+<li>package level, function level</li>
+</ul></li>
+<li>How to define:
+
+<ul>
+<li>variables
+
+<ul>
+<li>the special variable: <code>_</code></li>
+<li>the initialization value for implicit initialization</li>
+<li>primitive data types</li>
+<li>short variable declaration</li>
+<li>tuple assignment like python</li>
+<li><code>new()</code></li>
+<li><code>make()</code></li>
+</ul></li>
+<li>constants
+
+<ul>
+<li>enums (i.e., with <code>iota</code>)</li>
+</ul></li>
+<li>functions
+
+<ul>
+<li>it can be defined in any order in the same package</li>
+<li>no need for forward declaration</li>
+<li>the same goes to variables</li>
+</ul></li>
+<li>structures
+
+<ul>
+<li>and its methods</li>
+</ul></li>
+<li>maps</li>
+<li>interfaces</li>
+<li>arrays and slices</li>
+<li>pointers
+
+<ul>
+<li>how to dereference</li>
+<li>pointer arithmetic via <code>unsafe.Pointer()</code></li>
+<li>the nullptr is <code>nil</code></li>
+<li>a pointer to a local variable can be returned which is very different from C/C++ because of the garbe collector in Go</li>
+</ul></li>
+</ul></li>
+<li>Source code of predefined modules
 
 <ul>
 <li>e.g.: <code>log</code>: <a href="https://github.com/golang/go/tree/master/src/log">https://github.com/golang/go/tree/master/src/log</a></li>
+<li>log</li>
+<li>fmt</li>
+<li>string</li>
+<li>io</li>
+<li>flag</li>
 </ul></li>
+<li>Naming conventions
 
-<li><p>&hellip;</p></li>
+<ul>
+<li>camel case and visibility</li>
+</ul></li>
+<li>How to print variables
+
+<ul>
+<li><code>fmt.Printf()</code>
+
+<ul>
+<li><code>\n</code>, <code>%T</code>, <code>%v</code>, <code>%d</code>, <code>%s</code>, <code>%c</code>, <code>%b</code></li>
+</ul></li>
+<li><code>fmt.Println()</code></li>
+<li><code>fmt.Print()</code></li>
+</ul></li>
 </ol>
 
+<h2 id="numerical-data-types">Numerical Data Types</h2>
+
+<ol>
+<li><p>Integers</p>
+
+<ul>
+<li><code>int8</code>, <code>int16</code>, <code>int32</code>, <code>int64</code></li>
+<li><code>uint8</code>, <code>uint16</code>, <code>uint32</code>, <code>uint64</code></li>
+<li><code>int</code>, the compiler decides whether it is 32 or 64 bits</li>
+<li><code>uint</code>, the compiler decides whether it is 32 or 64 bits</li>
+<li><code>rune</code>, r(presentation) of (u)nicod(e) point, which is <code>uint32</code></li>
+<li><code>uintptr</code>, the compiler decides its width which is at least able to store a pointer</li>
+</ul></li>
+</ol>
+
+<p>The following code is valid</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">rune</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="kt">int32</span> <span class="p">=</span> <span class="nx">a</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>But the following are invalid and results in compile time error</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">rune</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="kt">int</span> <span class="p">=</span> <span class="nx">a</span>       <span class="cm">/* error, assign rune to int */</span>
+<span class="kd">var</span> <span class="nx">c</span> <span class="kt">int64</span> <span class="p">=</span> <span class="nx">a</span>     <span class="cm">/* error, assign rune to int64 */</span>
+<span class="kd">var</span> <span class="nx">d</span> <span class="kt">int32</span> <span class="p">=</span> <span class="nx">b</span>     <span class="cm">/* error, assign int to int32 */</span>
+<span class="kd">var</span> <span class="nx">e</span> <span class="kt">int64</span> <span class="p">=</span> <span class="nx">a</span>     <span class="cm">/* error, assign int to int64 */</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="common-errors">Common Errors</h2>
+
+<h3 id="name-equivalence-instead-of-structural-equivalence">Name Equivalence instead of Structural Equivalence</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Int</span> <span class="kt">int</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="nx">Int</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="kt">int</span> <span class="p">=</span> <span class="nx">a</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Since <code>a</code> is of type <code>Int</code> and <code>b</code> is of type <code>int</code>, the above assignment
+results in a compile time error:</p>
+
+<blockquote>
+<p>cannot use a (type Int) as type int in assignment</p>
+</blockquote>
+
+<p><font color="red"><strong>Note</strong>:</font> Both <code>a &lt; b</code> and <code>a*b</code> are <strong>invalid</strong>!</p>
+
+<p>To fix the error, we can use explicit conversion from <code>Int</code> to <code>int</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Int</span> <span class="kt">int</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="nx">Int</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="kt">int</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>  <span class="o">/*</span> <span class="nx">now</span> <span class="nx">no</span> <span class="kt">error</span> <span class="nx">occurs</span><span class="p">!</span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     

@@ -17,7 +17,7 @@
       <pubDate>Tue, 16 Oct 2018 18:28:13 +0800</pubDate>
       
       <guid>https://csu-fangjun.github.io/post/blog-with-hugo/</guid>
-      <description>References Sample config 如何在github.io搭建Hugo博客站 如何给自己的博客网站加入评论系统, gitment</description>
+      <description>References Sample config Jane Theme Preview 如何在github.io搭建Hugo博客站 如何给自己的博客网站加入评论系统, gitment</description>
     </item>
     
     <item>
@@ -26,10 +26,8 @@
       <pubDate>Tue, 16 Oct 2018 17:16:33 +0800</pubDate>
       
       <guid>https://csu-fangjun.github.io/post/learning-go/</guid>
-      <description> TODO  Structure of a project Visibility of variables and functions How to define:
- variables constants enums (i.e., with iota) functions structures and its methods interfaces  Source code of predefined modules
- e.g.: log: https://github.com/golang/go/tree/master/src/log  &amp;hellip;
-  </description>
+      <description>TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
+ upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i.</description>
     </item>
     
   </channel>
