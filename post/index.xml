@@ -6,10 +6,19 @@
     <description>Recent content in Posts on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Oct 2018 17:16:33 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 16 Oct 2018 18:28:13 +0800</lastBuildDate>
     
 	<atom:link href="https://csu-fangjun.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Blog With Hugo</title>
+      <link>https://csu-fangjun.github.io/post/blog-with-hugo/</link>
+      <pubDate>Tue, 16 Oct 2018 18:28:13 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/blog-with-hugo/</guid>
+      <description>References 如何在github.io搭建Hugo博客站 如何给自己的博客网站加入评论系统, gitment</description>
+    </item>
     
     <item>
       <title>Learn Go Programming</title>

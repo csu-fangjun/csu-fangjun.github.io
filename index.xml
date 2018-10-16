@@ -6,10 +6,29 @@
     <description>Recent content on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Oct 2018 17:16:33 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 16 Oct 2018 18:28:13 +0800</lastBuildDate>
     
         <atom:link href="https://csu-fangjun.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Blog With Hugo</title>
+      <link>https://csu-fangjun.github.io/post/blog-with-hugo/</link>
+      <pubDate>Tue, 16 Oct 2018 18:28:13 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/blog-with-hugo/</guid>
+      
+        <description>
+
+&lt;h1 id=&#34;references&#34;&gt;References&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://keysaim.github.io/post/blog/deploy-hugo-blog-in-github.io/&#34;&gt;如何在github.io搭建Hugo博客站&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://keysaim.github.io/post/2017-08-16-how-to-add-comments/&#34;&gt;如何给自己的博客网站加入评论系统&lt;/a&gt;, &lt;a href=&#34;https://github.com/imsun/gitment&#34;&gt;gitment&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
     
     <item>
       <title>Learn Go Programming</title>
