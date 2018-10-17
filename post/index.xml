@@ -26,8 +26,7 @@
       <pubDate>Tue, 16 Oct 2018 17:16:33 +0800</pubDate>
       
       <guid>https://csu-fangjun.github.io/post/learning-go/</guid>
-      <description>TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
- upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i.</description>
+      <description>TODO How to write hello world in go Structure of a project packages package initialization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?) Visibility of variables and functions upper case (exported) vs. lower case package level, function level How to define: variables the special variable: _ the initialization value for implicit initialization, i.e., default values primitive data types</description>
     </item>
     
   </channel>

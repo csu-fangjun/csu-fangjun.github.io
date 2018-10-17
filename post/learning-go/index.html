@@ -25,8 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="fangjun" />
-  <meta name="description" content="TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
- upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i." />
+  <meta name="description" content="TODO How to write hello world in go Structure of a project packages package initialization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?) Visibility of variables and functions upper case (exported) vs. lower case package level, function level How to define: variables the special variable: _ the initialization value for implicit initialization, i.e., default values primitive data types" />
 
   <meta name="keywords" content="notes, programming" />
 
@@ -59,28 +58,25 @@
 
 
 <meta property="og:title" content="Learn Go Programming" />
-<meta property="og:description" content="TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
- upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i." />
+<meta property="og:description" content="TODO How to write hello world in go Structure of a project packages package initialization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?) Visibility of variables and functions upper case (exported) vs. lower case package level, function level How to define: variables the special variable: _ the initialization value for implicit initialization, i.e., default values primitive data types" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://csu-fangjun.github.io/post/learning-go/" /><meta property="article:published_time" content="2018-10-16T17:16:33&#43;08:00"/>
 <meta property="article:modified_time" content="2018-10-16T17:16:33&#43;08:00"/>
 
 <meta itemprop="name" content="Learn Go Programming">
-<meta itemprop="description" content="TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
- upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i.">
+<meta itemprop="description" content="TODO How to write hello world in go Structure of a project packages package initialization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?) Visibility of variables and functions upper case (exported) vs. lower case package level, function level How to define: variables the special variable: _ the initialization value for implicit initialization, i.e., default values primitive data types">
 
 
 <meta itemprop="datePublished" content="2018-10-16T17:16:33&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-16T17:16:33&#43;08:00" />
-<meta itemprop="wordCount" content="412">
+<meta itemprop="wordCount" content="1738">
 
 
 
 <meta itemprop="keywords" content="go,golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Learn Go Programming"/>
-<meta name="twitter:description" content="TODO  How to write hello world in go Structure of a project  packages  packet initilization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?)   Visibility of variables and functions
- upper case (exported) vs. lower case package level, function level  How to define:  variables  the special variable: _ the initialization value for implicit initialization primitive data types short variable declaration tuple assignment like python new() make()  constants  enums (i."/>
+<meta name="twitter:description" content="TODO How to write hello world in go Structure of a project packages package initialization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?) Visibility of variables and functions upper case (exported) vs. lower case package level, function level How to define: variables the special variable: _ the initialization value for implicit initialization, i.e., default values primitive data types"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -293,8 +289,8 @@ if (!doNotTrack) {
             <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
             
           </div>
-        <span class="more-meta"> 412 words </span>
-          <span class="more-meta"> 2 min read </span>
+        <span class="more-meta"> 1738 words </span>
+          <span class="more-meta"> 4 min read </span>
 
         
         
@@ -314,7 +310,23 @@ if (!doNotTrack) {
 <li>
 <ul>
 <li><a href="#todo">TODO</a></li>
-<li><a href="#numerical-data-types">Numerical Data Types</a></li>
+<li><a href="#numerical-data-types">Numerical Data Types</a>
+<ul>
+<li><a href="#integers">Integers</a>
+<ul>
+<li><a href="#limits">Limits</a></li>
+</ul></li>
+<li><a href="#floating-point-numbers">Floating Point Numbers</a>
+<ul>
+<li><a href="#nan-and-inf">NaN and Inf</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#bool">bool</a></li>
+<li><a href="#string">string</a>
+<ul>
+<li><a href="#raw-literal-string">Raw Literal String</a></li>
+</ul></li>
+<li><a href="#fmt-printf">fmt.Printf</a></li>
 <li><a href="#common-errors">Common Errors</a>
 <ul>
 <li><a href="#name-equivalence-instead-of-structural-equivalence">Name Equivalence instead of Structural Equivalence</a></li>
@@ -339,7 +351,7 @@ if (!doNotTrack) {
 <li>packages
 
 <ul>
-<li>packet initilization function: <code>func init() {...}</code> which is called automatically when it is imported by others (<font color="red">how many times is it called?</font>)</li>
+<li>package initialization function: <code>func init() {...}</code> which is called automatically when it is imported by others (<font color="red">how many times is it called?</font>)</li>
 </ul></li>
 </ul></li>
 <li>Visibility of variables and functions<br />
@@ -355,9 +367,9 @@ if (!doNotTrack) {
 
 <ul>
 <li>the special variable: <code>_</code></li>
-<li>the initialization value for implicit initialization</li>
+<li>the initialization value for implicit initialization, i.e., default values</li>
 <li>primitive data types</li>
-<li>short variable declaration</li>
+<li>short variable declaration, i.e., <code>:=</code></li>
 <li>tuple assignment like python</li>
 <li><code>new()</code></li>
 <li><code>make()</code></li>
@@ -370,11 +382,11 @@ if (!doNotTrack) {
 <li>functions
 
 <ul>
-<li>it can be defined in any order in the same package</li>
+<li>it can be defined in any order in any file in the same package</li>
 <li>no need for forward declaration</li>
-<li>the same goes to variables</li>
+<li>the same goes for variables</li>
 </ul></li>
-<li>structures
+<li>structure
 
 <ul>
 <li>and its methods</li>
@@ -388,14 +400,13 @@ if (!doNotTrack) {
 <li>how to dereference</li>
 <li>pointer arithmetic via <code>unsafe.Pointer()</code></li>
 <li>the nullptr is <code>nil</code></li>
-<li>a pointer to a local variable can be returned which is very different from C/C++ because of the garbe collector in Go</li>
+<li>a pointer to a local variable can be returned which is very different from C/C++ because of the garbage collector in Go</li>
 </ul></li>
 </ul></li>
 <li>Source code of predefined modules
 
 <ul>
-<li>e.g.: <code>log</code>: <a href="https://github.com/golang/go/tree/master/src/log">https://github.com/golang/go/tree/master/src/log</a></li>
-<li>log</li>
+<li>log <sup class="footnote-ref" id="fnref:8"><a href="#fn:8">1</a></sup></li>
 <li>fmt</li>
 <li>string</li>
 <li>io</li>
@@ -412,7 +423,7 @@ if (!doNotTrack) {
 <li><code>fmt.Printf()</code>
 
 <ul>
-<li><code>\n</code>, <code>%T</code>, <code>%v</code>, <code>%d</code>, <code>%s</code>, <code>%c</code>, <code>%b</code></li>
+<li><code>\n</code>, <code>%T</code>, <code>%v</code>, <code>%d</code>, <code>%s</code>, <code>%c</code>, <code>%b</code>, <code>%o</code>, <code>%x</code></li>
 </ul></li>
 <li><code>fmt.Println()</code></li>
 <li><code>fmt.Print()</code></li>
@@ -421,18 +432,16 @@ if (!doNotTrack) {
 
 <h2 id="numerical-data-types">Numerical Data Types</h2>
 
-<ol>
-<li><p>Integers</p>
+<h3 id="integers">Integers</h3>
 
 <ul>
 <li><code>int8</code>, <code>int16</code>, <code>int32</code>, <code>int64</code></li>
 <li><code>uint8</code>, <code>uint16</code>, <code>uint32</code>, <code>uint64</code></li>
 <li><code>int</code>, the compiler decides whether it is 32 or 64 bits</li>
 <li><code>uint</code>, the compiler decides whether it is 32 or 64 bits</li>
-<li><code>rune</code>, r(presentation) of (u)nicod(e) point, which is <code>uint32</code></li>
+<li><code>rune</code>, <font color="red"><strong>r</strong></font>presentation of <font color="red"><strong>un</strong></font>icod<font color="red"><strong>e</strong></font> point, which is <code>int32</code></li>
 <li><code>uintptr</code>, the compiler decides its width which is at least able to store a pointer</li>
-</ul></li>
-</ol>
+</ul>
 
 <p>The following code is valid</p>
 <div class="highlight"><div class="chroma">
@@ -445,7 +454,7 @@ if (!doNotTrack) {
 <span class="kd">var</span> <span class="nx">b</span> <span class="kt">int32</span> <span class="p">=</span> <span class="nx">a</span></code></pre></td></tr></table>
 </div>
 </div>
-<p>But the following are invalid and results in compile time error</p>
+<p>But the following are invalid and result in compile time error</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
@@ -462,6 +471,342 @@ if (!doNotTrack) {
 <span class="kd">var</span> <span class="nx">e</span> <span class="kt">int64</span> <span class="p">=</span> <span class="nx">a</span>     <span class="cm">/* error, assign int to int64 */</span></code></pre></td></tr></table>
 </div>
 </div>
+<h4 id="limits">Limits</h4>
+
+<p>Similar to <code>std::numeric_limits&lt;xxx&gt;::max()</code> in C++, there are predefined
+limits for integers in the <code>math</code> module: <sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MinInt8</span><span class="p">)</span>  <span class="cm">/* -128 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MaxInt8</span><span class="p">)</span>  <span class="cm">/* 127 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MinInt16</span><span class="p">)</span> <span class="cm">/* -32768 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MaxInt16</span><span class="p">)</span> <span class="cm">/*  32767 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MinInt32</span><span class="p">)</span> <span class="cm">/* -2147483648 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MaxInt32</span><span class="p">)</span> <span class="cm">/*  2147483647 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MinInt64</span><span class="p">)</span> <span class="cm">/* -9223372036854775808*/</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">MaxInt64</span><span class="p">)</span> <span class="cm">/*  9223372036854775807*/</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="floating-point-numbers">Floating Point Numbers</h3>
+
+<ul>
+<li><code>float32</code></li>
+<li><code>float64</code></li>
+<li>Unlike C/C++, there is <strong>no</strong> <code>float</code> or <code>double</code> type in Go</li>
+<li>Notations like <code>1.2f</code> is invalid in Go!</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">float32</span>
+<span class="kd">var</span> <span class="nx">b</span> <span class="kt">float64</span>
+<span class="nx">a</span> <span class="p">=</span> <span class="mf">1.2</span>
+<span class="nx">b</span> <span class="p">=</span> <span class="mf">1.2</span>
+<span class="nx">c</span> <span class="o">:=</span> <span class="mf">1.2</span>
+<span class="nx">d</span> <span class="o">:=</span> <span class="nb">float32</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/* float32 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="cm">/* float64 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="cm">/* float64 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="cm">/* float32 */</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The above code shows that the default type for floating point numbers
+is <code>float64</code>.</p>
+
+<h4 id="nan-and-inf">NaN and Inf</h4>
+
+<p>Go uses <code>float64</code> to represent <code>NaN</code> and <code>Inf</code><sup class="footnote-ref" id="fnref:7"><a href="#fn:7">3</a></sup>.</p>
+
+<p>A NaN has the following bit representation</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">01111111 1111xxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx</pre></td></tr></table>
+</div>
+</div>
+<p>with at least one nonzero <code>x</code>.</p>
+
+<p>Go sets the first <code>x</code> to 1 which means quiet NaN <sup class="footnote-ref" id="fnref:3"><a href="#fn:3">4</a></sup>. The last <code>x</code> is
+also set to 1 and remaining <code>x</code>s are set to 0. Thus the quiet NaN
+in Go is represented by <code>0x7f f8 00 00 00 00 00 01</code><sup class="footnote-ref" id="fnref:4"><a href="#fn:4">5</a></sup>.</p>
+
+<p>A positive <code>Inf</code> sets all <code>x</code> to 0 and a negative <code>Inf</code> sets
+the sign bit of the positive <code>Inf</code> to 1.</p>
+
+<ul>
+<li>positive <code>Inf</code> in Go: <code>0x7f f0 00 00 00 00 00 00</code> <sup class="footnote-ref" id="fnref:5"><a href="#fn:5">6</a></sup></li>
+<li>negative <code>Inf</code> in Go: <code>0xff f0 00 00 00 00 00 00</code> <sup class="footnote-ref" id="fnref:6"><a href="#fn:6">7</a></sup></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">NaN</span><span class="p">())</span>                              <span class="cm">/* NaN */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%#0x\n&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="p">.</span><span class="nx">Float64bits</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">NaN</span><span class="p">()))</span>   <span class="cm">/* 0x7ff8000000000001 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">IsNaN</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">NaN</span><span class="p">()))</span>                  <span class="cm">/* true */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Inf</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>                             <span class="cm">/* +Inf */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Inf</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>                            <span class="cm">/* -Inf */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">IsInf</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Inf</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>              <span class="cm">/* true */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">IsInf</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Inf</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>            <span class="cm">/* true */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%#0x\n&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="p">.</span><span class="nx">Float64bits</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Inf</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>  <span class="cm">/* 0x7ff0000000000000 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%#0x\n&#34;</span><span class="p">,</span> <span class="nx">math</span><span class="p">.</span><span class="nx">Float64bits</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Inf</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span> <span class="cm">/* 0xfff0000000000000 */</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">NaN</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">math</span><span class="p">.</span><span class="nx">NaN</span><span class="p">())</span>   <span class="cm">/* true */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Inf</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nx">math</span><span class="p">.</span><span class="nx">Inf</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="cm">/* false */</span>
+
+<span class="nx">a</span> <span class="o">:=</span> <span class="mf">0.</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="mi">0</span> <span class="o">/</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/* NaN */</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="nx">a</span><span class="p">)</span>  <span class="cm">/* +Inf */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/* -Inf */</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="cm">/* NaN */</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note that to build a <code>Inf</code> we have to specify whether we&rsquo;re wanting
+a positive <code>Inf</code> or a negative <code>Inf</code> and the sign is passed as a number.
+Only the sign of the number matters.</p>
+
+<h2 id="bool">bool</h2>
+
+<p>Note that <code>if 1 {}</code> is invalid in Go!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">bool</span>
+<span class="nx">a</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="nx">b</span> <span class="o">:=</span> <span class="mi">1</span> <span class="p">&gt;</span> <span class="mi">2</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T %[1]v\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/* bool true */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T %[1]v\n&#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="cm">/* bool false */</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note that we cannot use <code>%d</code> to print a <code>bool</code> !</p>
+
+<p>The meaning of <code>&amp;&amp;</code> and <code>||</code> is the same as C/C++,
+i.e., short-circuit evaluation.</p>
+
+<h2 id="string">string</h2>
+
+<p><code>string</code> in Go has exactly the same memory layout with <code>[]byte</code> but</p>
+
+<ul>
+<li>we cannot use <code>&amp;s[1]</code> to get the address of its element</li>
+<li>there is no <code>cap()</code> method and no <code>cap</code> field in the header for a <code>string</code></li>
+<li><code>s[0] = 'a'</code> results in compile time error since a string is readonly.</li>
+</ul>
+
+<p>We can use <code>len()</code> to get the number of bytes in a <code>string</code>.
+Number of bytes in a <code>string</code> does not necessarily equal to
+the number of characters (i.e., rune) in a <code>string</code>. For example, <code>&quot;中&quot;</code>
+is one character (or one rune) but it occupies 3 bytes: <code>0xe4</code>, <code>0xb8</code>, <code>0xad</code>
+which are its utf8 encoding. <code>len(&quot;中&quot;)</code> returns 3.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">s</span> <span class="o">:=</span> <span class="s">&#34;123&#34;</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span> <span class="cm">/* string */</span>
+
+<span class="c1">// ps: address of s, which is the address of the header
+</span><span class="c1"></span><span class="nx">ps</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint64</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">s</span><span class="p">))</span>
+
+<span class="c1">// parr: address of the array
+</span><span class="c1"></span><span class="nx">parr</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint8</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="o">*</span><span class="nx">ps</span><span class="p">)))</span>
+<span class="nx">parr1</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint8</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nx">parr</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nx">parr2</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint8</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nx">parr</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%x %x %x\n&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">parr</span><span class="p">,</span> <span class="o">*</span><span class="nx">parr1</span><span class="p">,</span> <span class="o">*</span><span class="nx">parr2</span><span class="p">)</span> <span class="cm">/* 31 32 33 */</span>
+
+<span class="c1">// *parr2 = &#39;4&#39; /* runtime error! */
+</span><span class="c1"></span>
+<span class="nx">plen</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">((</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nx">ps</span><span class="p">))</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)))</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;len:&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">plen</span><span class="p">)</span> <span class="cm">/* len: 3 */</span>
+
+<span class="c1">// string has no capacity field!
+</span><span class="c1">// pcap := (*int)(unsafe.Pointer((uintptr(unsafe.Pointer(ps)) + 16)))
+</span><span class="c1"></span><span class="o">//</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;cap:&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">pcap</span><span class="p">)</span> <span class="cm">/* cap: 0 */</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="raw-literal-string">Raw Literal String</h3>
+
+<p>Use ` ` to build a literal string.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">s1</span> <span class="o">:=</span> <span class="s">`this is a newline \n
+</span><span class="s">a second line
+</span><span class="s">`</span>
+
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">s1</span><span class="p">)</span> <span class="cm">/* string */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
+<span class="cm">/*
+</span><span class="cm">    this is a newline \n
+</span><span class="cm">            a second line
+</span><span class="cm">*/</span>
+
+<span class="nx">s2</span> <span class="o">:=</span> <span class="s">&#34;this is a newline \\n\na second line&#34;</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s2</span><span class="p">)</span>
+<span class="cm">/*
+</span><span class="cm">    this is a newline \n
+</span><span class="cm">    a second line
+</span><span class="cm">*/</span>
+
+<span class="cm">/* Note that for ``, \n do not need to be skipped.
+</span><span class="cm">  Moreover, a &#34;second a line&#34; is indented for ``.
+</span><span class="cm">*/</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="fmt-printf">fmt.Printf</h2>
+
+<p>Example code and its output:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%v\n&#34;</span><span class="p">,</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">})</span>                           <span class="cm">/* 3 4 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                                    <span class="cm">/* int */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%x %#x %3x %#4x %#04X\n&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="cm">/* a 0x0a     a  0xa 0X000A */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%x %#[1]x %3[1]x %#4[1]x %#04[1]X\n&#34;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>     <span class="cm">/* a 0x0a     a  0xa 0X000A */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%d %[2]d %[1]d\n&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>                      <span class="cm">/* 1 2 1 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%c %[1]q\n&#34;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">)</span>                             <span class="cm">/* a &#39;a&#39;*/</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%c %[1]q %#[1]x %+[1]q %[1]U\n&#34;</span><span class="p">,</span> <span class="sc">&#39;中&#39;</span><span class="p">)</span>         <span class="cm">/* 中 &#39;中&#39; 0x4e2d &#39;\u4e2d&#39; U+4E2D */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%#U\n&#34;</span><span class="p">,</span> <span class="sc">&#39;中&#39;</span><span class="p">)</span>                                  <span class="cm">/* U+4E2D &#39;中&#39; */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%s %[1]v %[1]q\n&#34;</span><span class="p">,</span> <span class="s">&#34;中国&#34;</span><span class="p">)</span>                      <span class="cm">/* 中国 中国 &#34;中国&#34; */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%x\n&#34;</span><span class="p">,</span> <span class="s">&#34;中123&#34;</span><span class="p">)</span>                                <span class="cm">/* e4b8ad313233 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;% x\n&#34;</span><span class="p">,</span> <span class="s">&#34;中123&#34;</span><span class="p">)</span>                               <span class="cm">/* e4 b8 ad 31 32 33 */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%q\n&#34;</span><span class="p">,</span> <span class="s">&#34;中123&#34;</span><span class="p">)</span>                                <span class="cm">/* &#34;中123&#34; */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%+q\n&#34;</span><span class="p">,</span> <span class="s">&#34;中123&#34;</span><span class="p">)</span>                               <span class="cm">/* \u4e2d123*/</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><code>%v</code> to print the value of the argument, useful for <code>array</code>, <code>slice</code>, etc.</li>
+<li><code>%T</code> to print the type of the argument</li>
+<li><code>#</code> is to print <code>0x</code> for <code>%x</code> and <code>0</code> for <code>%o</code></li>
+<li><code>[1]</code> is the first parameter in the parameter list. It counts from <strong>1</strong> instead of 0</li>
+<li><code>[2]</code> is the second parameter in the parameter list</li>
+<li>difference between <code>%x</code> and <code>%X</code>:
+
+<ul>
+<li><code>%x</code> prints lower cases, i.e, 0x, abcdef</li>
+<li><code>%X</code> prints upper cases, i.e, 0X, ABCDEF</li>
+</ul></li>
+<li><code>%q</code> to add <code>''</code> to output characters and add <code>&quot;&quot;</code> to strings</li>
+<li><code>%+q</code> to print the unicode code point for strings and characters</li>
+<li><code>%x</code> to print unicode for characters but utf8 for strings</li>
+<li><code>%U</code> can be used only for characters to print its unicode point</li>
+<li><code>%#U</code> to print both the unicode point and the corresponding character</li>
+<li>Note that <code>%u</code> is undefined in Go! (It is for unsigned in C/C++)</li>
+<li>both a character and a <code>rune</code> can be printed with <code>%c</code> or <code>%q</code></li>
+<li>the unicode code point <sup class="footnote-ref" id="fnref:1"><a href="#fn:1">8</a></sup> for <code>中</code> is <code>U+4E2D</code>; use <code>%x</code> to view its unicode code point</li>
+<li>the utf8 encoding <sup class="footnote-ref" id="fnref:1"><a href="#fn:1">8</a></sup> for <code>中</code> is <code>e4 b8 ad</code></li>
+<li>refer to &ldquo;Strings, bytes, runes and characters in Go&rdquo; (<a href="https://blog.golang.org/strings">https://blog.golang.org/strings</a>) for string representations in Go. The utf8 code point of a string is stored in the memory.</li>
+</ul>
+
 <h2 id="common-errors">Common Errors</h2>
 
 <h3 id="name-equivalence-instead-of-structural-equivalence">Name Equivalence instead of Structural Equivalence</h3>
@@ -498,7 +843,30 @@ results in a compile time error:</p>
 <span class="kd">var</span> <span class="nx">a</span> <span class="nx">Int</span>
 <span class="kd">var</span> <span class="nx">b</span> <span class="kt">int</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>  <span class="o">/*</span> <span class="nx">now</span> <span class="nx">no</span> <span class="kt">error</span> <span class="nx">occurs</span><span class="p">!</span></code></pre></td></tr></table>
 </div>
+</div><div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:8"><a href="https://github.com/golang/go/tree/master/src/log">https://github.com/golang/go/tree/master/src/log</a>
+ <a class="footnote-return" href="#fnref:8"><sup>[return]</sup></a></li>
+<li id="fn:2">Refer to <a href="https://github.com/golang/go/blob/master/src/math/const.go#L39">https://github.com/golang/go/blob/master/src/math/const.go#L39</a>
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+<li id="fn:7"><a href="https://github.com/golang/go/blob/master/src/math/bits.go">https://github.com/golang/go/blob/master/src/math/bits.go</a>
+ <a class="footnote-return" href="#fnref:7"><sup>[return]</sup></a></li>
+<li id="fn:3"><a href="https://en.wikipedia.org/wiki/NaN#Encoding">https://en.wikipedia.org/wiki/NaN#Encoding</a>
+ <a class="footnote-return" href="#fnref:3"><sup>[return]</sup></a></li>
+<li id="fn:4"><a href="https://github.com/golang/go/blob/master/src/math/bits.go#L8">https://github.com/golang/go/blob/master/src/math/bits.go#L8</a>
+ <a class="footnote-return" href="#fnref:4"><sup>[return]</sup></a></li>
+<li id="fn:5"><a href="https://github.com/golang/go/blob/master/src/math/bits.go#L9">https://github.com/golang/go/blob/master/src/math/bits.go#L9</a>
+ <a class="footnote-return" href="#fnref:5"><sup>[return]</sup></a></li>
+<li id="fn:6"><a href="https://github.com/golang/go/blob/master/src/math/bits.go#L10">https://github.com/golang/go/blob/master/src/math/bits.go#L10</a>
+ <a class="footnote-return" href="#fnref:6"><sup>[return]</sup></a></li>
+<li id="fn:1">Refer to <a href="http://www.ltg.ed.ac.uk/~richard/utf-8.cgi?input=%E4%B8%AD&amp;mode=char">http://www.ltg.ed.ac.uk/~richard/utf-8.cgi?input=%E4%B8%AD&amp;mode=char</a> for conversion between unicode utf8.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
 </div>
+
     </div>
 
     
