@@ -6,10 +6,21 @@
     <description>Recent content in Go on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 Oct 2018 17:16:33 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 17 Oct 2018 22:10:40 +0800</lastBuildDate>
     
 	<atom:link href="https://csu-fangjun.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Libraries for Go</title>
+      <link>https://csu-fangjun.github.io/post/libraries-for-go/</link>
+      <pubDate>Wed, 17 Oct 2018 22:10:40 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/libraries-for-go/</guid>
+      <description> This post lists some go libraries are useful for me.
+There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
+ awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  </description>
+    </item>
     
     <item>
       <title>Learn Go Programming</title>

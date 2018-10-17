@@ -69,7 +69,7 @@
 
 <meta itemprop="datePublished" content="2018-10-16T17:16:33&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-16T17:16:33&#43;08:00" />
-<meta itemprop="wordCount" content="1738">
+<meta itemprop="wordCount" content="3929">
 
 
 
@@ -289,8 +289,8 @@ if (!doNotTrack) {
             <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
             
           </div>
-        <span class="more-meta"> 1738 words </span>
-          <span class="more-meta"> 4 min read </span>
+        <span class="more-meta"> 3929 words </span>
+          <span class="more-meta"> 8 min read </span>
 
         
         
@@ -325,6 +325,22 @@ if (!doNotTrack) {
 <li><a href="#string">string</a>
 <ul>
 <li><a href="#raw-literal-string">Raw Literal String</a></li>
+</ul></li>
+<li><a href="#array">Array</a></li>
+<li><a href="#slice">Slice</a>
+<ul>
+<li><a href="#slice-manipulations">Slice Manipulations</a></li>
+</ul></li>
+<li><a href="#map">Map</a></li>
+<li><a href="#struct">Struct</a></li>
+<li><a href="#functions">Functions</a>
+<ul>
+<li><a href="#named-return-values">Named Return values</a></li>
+<li><a href="#variables-of-function-types">Variables of Function types</a></li>
+<li><a href="#static-variables">Static Variables</a></li>
+<li><a href="#variadic-functions">Variadic Functions</a></li>
+<li><a href="#defer">defer</a></li>
+<li><a href="#panic">panic</a></li>
 </ul></li>
 <li><a href="#fmt-printf">fmt.Printf</a></li>
 <li><a href="#common-errors">Common Errors</a>
@@ -406,11 +422,25 @@ if (!doNotTrack) {
 <li>Source code of predefined modules
 
 <ul>
-<li>log <sup class="footnote-ref" id="fnref:8"><a href="#fn:8">1</a></sup></li>
 <li>fmt</li>
-<li>string</li>
-<li>io</li>
+<li>bytes</li>
 <li>flag</li>
+<li>fmt</li>
+<li>io</li>
+<li>log <sup class="footnote-ref" id="fnref:8"><a href="#fn:8">1</a></sup>
+
+<ul>
+<li><code>log.Fatalf()</code></li>
+<li><code>log.Printf()</code></li>
+</ul></li>
+<li>math</li>
+<li>path</li>
+<li>strconv</li>
+<li>strings</li>
+<li>time</li>
+<li>errors</li>
+<li>encoding, encoding/json</li>
+<li>regexp</li>
 </ul></li>
 <li>Naming conventions
 
@@ -427,6 +457,9 @@ if (!doNotTrack) {
 </ul></li>
 <li><code>fmt.Println()</code></li>
 <li><code>fmt.Print()</code></li>
+<li><code>fmt.Fprintf()</code></li>
+<li><code>fmt.Sprintf()</code></li>
+<li><code>fmt.Errorf()</code></li>
 </ul></li>
 </ol>
 
@@ -620,16 +653,18 @@ Only the sign of the number matters.</p>
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">bool</span>
 <span class="nx">a</span> <span class="p">=</span> <span class="kc">true</span>
 <span class="nx">b</span> <span class="o">:=</span> <span class="mi">1</span> <span class="p">&gt;</span> <span class="mi">2</span>
 <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T %[1]v\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/* bool true */</span>
-<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T %[1]v\n&#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="cm">/* bool false */</span></code></pre></td></tr></table>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T %[1]v\n&#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="cm">/* bool false */</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%t\n&#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="cm">/* false */</span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Note that we cannot use <code>%d</code> to print a <code>bool</code> !</p>
+<p>Note that we cannot use <code>%d</code> to print a <code>bool</code>! <code>%t</code> can be used instead</p>
 
 <p>The meaning of <code>&amp;&amp;</code> and <code>||</code> is the same as C/C++,
 i.e., short-circuit evaluation.</p>
@@ -746,6 +781,995 @@ which are its utf8 encoding. <code>len(&quot;中&quot;)</code> returns 3.</p>
 <span class="cm">/* Note that for ``, \n do not need to be skipped.
 </span><span class="cm">  Moreover, a &#34;second a line&#34; is indented for ``.
 </span><span class="cm">*/</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="array">Array</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="kd">var</span> <span class="nx">a</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>              <span class="cm">/* [0 0 0 ] */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%v\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>       <span class="cm">/* [0 0 0] */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 3 3 */</span>
+
+	<span class="nx">b</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>              <span class="cm">/* [1 2 3] */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span> <span class="cm">/* 3 3*/</span>
+
+	<span class="nx">c</span> <span class="o">:=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>       <span class="cm">/* [2]int */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>              <span class="cm">/* [1 2] */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span> <span class="cm">/* 2 2 */</span>
+
+	<span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">10</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="cm">/* [10 2] */</span>
+
+	<span class="c1">// c[3] = 20    /* compile time error */
+</span><span class="c1"></span>
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;c[%d] = %d, &#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span> <span class="cm">/* c[0] = 10, c[1]=2, */</span>
+		<span class="nx">v</span> <span class="p">=</span> <span class="mi">0</span>                            <span class="cm">/*v is a copy, c is not changed!*/</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">()</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;c[%d] = %d, &#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="cm">/*c[0] = 10, c[1] = 2, */</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">()</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%d, &#34;</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span> <span class="cm">/*10, 2, */</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;&amp;c=%p\n&amp;c[0]=%p\n&amp;c[1]=%p\n&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">c</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+	<span class="cm">/*
+</span><span class="cm">		&amp;c   =0xc0000180e0
+</span><span class="cm">		&amp;c[0]=0xc0000180e0
+</span><span class="cm">		&amp;c[1]=0xc0000180e8
+</span><span class="cm">	*/</span>
+
+	<span class="nx">d</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
+		<span class="mi">1</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+		<span class="mi">0</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="cm">/* [100 200] */</span>
+
+	<span class="nx">e</span> <span class="o">:=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
+		<span class="mi">3</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span> <span class="cm">/* [4]int */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>        <span class="cm">/* [0 0 0 300] */</span>
+
+	<span class="nx">f</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">}</span>
+	<span class="nx">g</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">}</span>
+	<span class="nx">f</span> <span class="p">=</span> <span class="nx">g</span>          <span class="cm">/* copy */</span>
+	<span class="nx">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>       <span class="cm">/* g is not changed */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="cm">/* [0 200] */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">g</span><span class="p">)</span> <span class="cm">/* [100 200]*/</span>
+
+	<span class="nx">f</span> <span class="p">=</span> <span class="nx">g</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span> <span class="o">==</span> <span class="nx">g</span><span class="p">)</span> <span class="cm">/* true */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span> <span class="o">!=</span> <span class="nx">g</span><span class="p">)</span> <span class="cm">/* false */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;&amp;f=%p\n&amp;g=%p\n&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">f</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">g</span><span class="p">)</span>
+	<span class="cm">/*
+</span><span class="cm">		&amp;f=0xc000018100
+</span><span class="cm">		&amp;g=0xc000018110
+</span><span class="cm">	*/</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>how to print an array</li>
+<li>how to get the length of an array</li>
+<li>how to define an array variable
+
+<ul>
+<li>how to let the compiler determine the array length</li>
+<li>how to initialize an array at the time of definition</li>
+</ul></li>
+<li>how to access the element of an array</li>
+<li>how to iterate an array</li>
+<li>is an array stored continuously in memory</li>
+<li>unlike C/C++, the name of an array in Go is not a constant
+
+<ul>
+<li><code>arr1 = arr2</code> is totally valid and has copy semantics</li>
+<li>avoid passing an array to a function in Go</li>
+<li>avoid returning an array from a function</li>
+<li>pass a pointer or a slice of an array instead!</li>
+</ul></li>
+<li>arrays of the same type can be compared using <code>==</code>, <code>!=</code>
+
+<ul>
+<li>but comparison with <code>&lt;=</code>, <code>&lt;</code> etc. results in compile time error!</li>
+</ul></li>
+</ul>
+
+<h2 id="slice">Slice</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="kd">var</span> <span class="nx">a</span> <span class="p">[]</span><span class="kt">int</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/* []int */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="cm">/* true */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span>   <span class="cm">/* 0 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span>   <span class="cm">/* 0 */</span>
+
+	<span class="kd">var</span> <span class="nx">b</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="cm">/* []int */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">b</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="cm">/* false */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>   <span class="cm">/* 0 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">cap</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>   <span class="cm">/* 0 */</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="cm">/*[] []*/</span>
+
+	<span class="nx">d</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">}</span>
+	<span class="nx">a</span> <span class="p">=</span> <span class="nx">d</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+	<span class="nx">pa</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint64</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">a</span><span class="p">))))</span>
+	<span class="cm">/* pd[0] is invalid in Go ! */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;&amp;d=%p\n&amp;d[1]=%p\npa[0]=%#x\n&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">d</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">d</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="nx">pa</span><span class="p">)</span>
+	<span class="nx">pa1</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nx">pa</span><span class="p">))</span> <span class="o">+</span> <span class="mi">8</span><span class="p">))</span>
+	<span class="nx">pa2</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nx">pa</span><span class="p">))</span> <span class="o">+</span> <span class="mi">16</span><span class="p">))</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;pa[1]=%d\npa[2]=%d\n&#34;</span><span class="p">,</span> <span class="o">*</span><span class="nx">pa1</span><span class="p">,</span> <span class="o">*</span><span class="nx">pa2</span><span class="p">)</span>
+	<span class="cm">/*
+</span><span class="cm">		&amp;d   =0xc0000161a0
+</span><span class="cm">		&amp;d[1]=0xc0000161a8
+</span><span class="cm">		pa[0]=0xc0000161a8
+</span><span class="cm">		pa[1]=2
+</span><span class="cm">		pa[2]=2
+</span><span class="cm">	*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 2 */</span>
+	<span class="o">*</span><span class="nx">pa1</span> <span class="p">=</span> <span class="mi">3</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 3 */</span>
+	<span class="o">*</span><span class="nx">pa1</span> <span class="p">=</span> <span class="mi">2</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 2 */</span>
+	<span class="o">*</span><span class="nx">pa2</span> <span class="p">=</span> <span class="mi">1</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 1 */</span>
+	<span class="o">*</span><span class="nx">pa2</span> <span class="p">=</span> <span class="mi">2</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="cm">/* [20 30] [10 20 30] */</span>
+	<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="o">*</span><span class="nx">pa</span><span class="p">)))</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="cm">/* [-1 30] [10 -1 30] */</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>How to define a slice
+
+<ul>
+<li>when is a slice <code>nil</code></li>
+</ul></li>
+<li>How does the slice header looks like
+
+<ul>
+<li><code>[0]</code>: the address of the pointed element in the array.</li>
+<li><code>[1]</code>: <code>int</code>, length of the slice, returned by <code>len()</code></li>
+<li><code>[2]</code>: <code>int</code>, capacity of the slice, returned by <code>cap()</code></li>
+</ul></li>
+</ul>
+
+<h3 id="slice-manipulations">Slice Manipulations</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">a</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>          <span class="cm">/*false*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>          <span class="cm">/*[]int*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/*0 0 []*/</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>          <span class="cm">/*false*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/*0 0 []*/</span>
+
+	<span class="c1">// a = new([]int) /* compile time error*/
+</span><span class="c1"></span>
+	<span class="nx">b</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">([]</span><span class="kt">int</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T\n&#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="cm">/* *[]int */</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/*2 2 [0 0]*/</span>
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/*2 3 [0 0]*/</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/*3 3 [0 0 10]*/</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/*4 6 [0 0 10 20]*/</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/*6 6 [0 0 10 20 30 40]*/</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span> <span class="cm">/*7 12 [0 0 10 20 30 40 50]*/</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">a</span><span class="o">...</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/*14 24*/</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">a</span><span class="o">...</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/*28 48*/</span>
+
+	<span class="nx">a</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">69</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/*97 112*/</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>how to append a slice
+
+<ul>
+<li>how to append variable elements at once</li>
+<li>how to unpack</li>
+</ul></li>
+</ul>
+
+<h2 id="map">Map</h2>
+
+<p>Maps in Go are based on hash tables.</p>
+
+<ul>
+<li>how to define a map
+
+<ul>
+<li>key, value</li>
+<li>what are the constraints of an key</li>
+</ul></li>
+<li>Note that access a non-existent key does not create the key automatically!</li>
+<li>how to access a key</li>
+<li>how to delete a key</li>
+<li>how to iterate a map</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="kd">var</span> <span class="nx">b</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">b</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="cm">/* true */</span>
+
+	<span class="nx">a</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="cm">/* false */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span>   <span class="cm">/* 0 */</span>
+
+	<span class="k">if</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;a[0] does not exist!&#34;</span><span class="p">)</span> <span class="cm">/*choose this*/</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;a[0] is&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="cm">/*the above a[0] does not create a new element!*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 0 */</span>
+
+	<span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="s">&#34;hello&#34;</span> <span class="cm">/*even a[0] does not exist, += can be used on it! */</span>
+	<span class="k">if</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;a[0] does not exist!&#34;</span><span class="p">)</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;a[0] is&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="cm">/* a[0] is hello */</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 1 */</span>
+
+	<span class="nx">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;world&#34;</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 2 */</span>
+	<span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;key: %d, value: %s\n&#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="cm">/*
+</span><span class="cm">		key: 0, value: hello
+</span><span class="cm">		key: -1, value: world
+</span><span class="cm">	*/</span>
+
+	<span class="k">for</span> <span class="nx">key</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="cm">/*
+</span><span class="cm">		0
+</span><span class="cm">		-1
+</span><span class="cm">	*/</span>
+	<span class="nb">delete</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>       <span class="cm">/*remove key -1*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 1 */</span>
+
+	<span class="nb">delete</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>      <span class="cm">/* remove a key that does not exist is valid! */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 1 */</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>   <span class="cm">/* print nothing. */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span> <span class="cm">/* 1 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>      <span class="cm">/*map[0:hello]*/</span>
+	<span class="c1">// fmt.Println(&amp;a[0])  /*compile time error: cannot take the address of a[0]*/
+</span><span class="c1"></span>
+	<span class="nx">m</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
+		<span class="s">&#34;hello&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+		<span class="s">&#34;world&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span> <span class="cm">/*map[hello:0, world:1]*/</span>
+
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span> <span class="cm">/* false */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span>   <span class="cm">/* 0 */</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="struct">Struct</h2>
+
+<ul>
+<li>both <code>(*p).field</code> and <code>p.field</code> are valid when <code>p</code> is a pointer in Go!</li>
+<li>there is no <code>p-&gt;field</code> in Go!</li>
+<li>a <code>struct</code> can be defined either inside a function or outside of a function
+
+<ul>
+<li>i.e., <code>type xxx struct</code> can appear either in a function or outside of it</li>
+</ul></li>
+<li>the memory layout of a <code>struct</code> in Go is similar to C/C++
+
+<ul>
+<li>that is, there might be <strong>padding</strong> added by the compiler between fields</li>
+<li>a <code>struct</code> is stored continuously in the memory</li>
+</ul></li>
+<li>a <code>struct</code> can be exported or not exported and at the same time
+
+<ul>
+<li>part of its fields can be exported</li>
+<li>part of its fields can be not exported</li>
+<li>i.e., even when a <code>struct</code> is exported, we cannot access all of its element</li>
+</ul></li>
+<li>Like <code>array</code>s, a <code>struct</code> is passed by copy to a function!</li>
+<li><font color="red"><strong>anonymous fields</strong></font></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="kd">type</span> <span class="nx">Student</span> <span class="kd">struct</span> <span class="p">{</span>
+		<span class="nx">grade</span> <span class="kt">int16</span>
+		<span class="nx">age</span>   <span class="kt">int8</span>
+		<span class="nx">id</span>    <span class="kt">int32</span>
+	<span class="p">}</span>
+	<span class="nx">s1</span> <span class="o">:=</span> <span class="nx">Student</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span> <span class="cm">/* 1 2 3 */</span>
+	<span class="nx">s2</span> <span class="o">:=</span> <span class="nx">Student</span><span class="p">{</span>
+		<span class="nx">id</span><span class="p">:</span>    <span class="mi">1</span><span class="p">,</span>
+		<span class="nx">age</span><span class="p">:</span>   <span class="mi">10</span><span class="p">,</span>
+		<span class="nx">grade</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s2</span><span class="p">)</span> <span class="cm">/* 10 10 1*/</span>
+
+	<span class="kd">var</span> <span class="nx">p</span> <span class="o">*</span><span class="nx">Student</span>
+	<span class="nx">p</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">s2</span>
+	<span class="nx">p</span><span class="p">.</span><span class="nx">id</span> <span class="p">=</span> <span class="mi">2</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s2</span><span class="p">)</span> <span class="cm">/* 10 10 2*/</span>
+	<span class="c1">// p-&gt;id = 3	/*compile time error*/
+</span><span class="c1"></span>	<span class="p">(</span><span class="o">*</span><span class="nx">p</span><span class="p">).</span><span class="nx">id</span> <span class="p">=</span> <span class="mi">3</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s2</span><span class="p">)</span> <span class="cm">/* 10 10 3*/</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;&amp;s2=%p\n&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s2</span><span class="p">)</span>             <span class="cm">/*&amp;s2=0xc0000180f0*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;&amp;s2.grade=%p\n&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s2</span><span class="p">.</span><span class="nx">grade</span><span class="p">)</span> <span class="cm">/*&amp;s2.grade=0xc0000180f0*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;&amp;s2.age=%p\n&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s2</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>     <span class="cm">/*&amp;s2.age=0xc0000180f2*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;&amp;s2.id=%p\n&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s2</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>       <span class="cm">/*&amp;s2.id=0xc0000180f4*/</span>
+	<span class="cm">/*Note that there is one byte padding after s2.grade*/</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="functions">Functions</h2>
+
+<ul>
+<li><p>How to declare a function</p>
+
+<ul>
+<li>arguments (none, single, multiple, or variadic)</li>
+<li>return values (none, single, or multiple)</li>
+<li>the order of declaration/definition does not matter; it can even be at different files as long as they are at the same package</li>
+</ul></li>
+
+<li><p>The function signature in Go contains the return types which is different from
+C++!!!</p></li>
+
+<li><p>There are no default arguments and no keyword arguments in Go</p></li>
+
+<li><p>Like C/C++, function parameters are pass by value. Unlike C++, there is no
+reference type in Go. Use pointers as function arguments
+or use slices when necessary.</p></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">sayHelloWorld</span><span class="p">(</span><span class="nx">str</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">str</span> <span class="o">+</span> <span class="s">&#34; hello &#34;</span> <span class="o">+</span> <span class="nx">sayWorld</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">sayHelloWorld</span><span class="p">(</span><span class="s">&#34;--&#34;</span><span class="p">)</span> <span class="cm">/* -- hello world */</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">sayWorld</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="s">&#34;world&#34;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="named-return-values">Named Return values</h3>
+
+<p>If return values are given a name, they are initialized to its default value.
+Note that even if the return values are named, we still have to use <code>return</code>
+inside the function.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">named1</span><span class="p">()</span> <span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">a</span> <span class="cm">/* a is initialized to its default value 0*/</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">named2</span><span class="p">()</span> <span class="p">(</span><span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">b</span> <span class="p">=</span> <span class="mi">3</span>
+	<span class="k">return</span> <span class="nx">b</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">named3</span><span class="p">()</span> <span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">a</span> <span class="p">=</span> <span class="mi">10</span>
+	<span class="nx">b</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
+	<span class="k">return</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="cm">/* return multiple values! */</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">a</span> <span class="o">:=</span> <span class="nx">named1</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="cm">/* 0 */</span>
+
+	<span class="nx">b</span> <span class="o">:=</span> <span class="nx">named2</span><span class="p">()</span> <span class="cm">/* 3 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+
+	<span class="nx">c</span><span class="p">,</span> <span class="nx">d</span> <span class="o">:=</span> <span class="nx">named3</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span> <span class="cm">/* 10 hello */</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="variables-of-function-types">Variables of Function types</h3>
+
+<ul>
+<li>How to define a variable of a function type
+
+<ul>
+<li>use <code>var</code></li>
+<li>use short declaration</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">helloWorld</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="s">&#34;hello world&#34;</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">halloWelt</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;Hallo Welt!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">f</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">string</span>
+	<span class="nx">f</span> <span class="p">=</span> <span class="nx">helloWorld</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span><span class="p">())</span> <span class="cm">/* hello world */</span>
+
+	<span class="nx">g</span> <span class="o">:=</span> <span class="nx">halloWelt</span>
+	<span class="nx">g</span><span class="p">()</span> <span class="cm">/* Hallo Welt! */</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="static-variables">Static Variables</h3>
+
+<p>Use closure to simulate static variables in Go.</p>
+
+<p>The following code captures <code>x</code> by reference.
+The <code>x</code> in <code>f</code> and <code>f2</code> are two different copies.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">f_</span><span class="p">()</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">x</span> <span class="kt">int</span>
+	<span class="k">return</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+		<span class="nx">x</span><span class="o">++</span>
+		<span class="k">return</span> <span class="nx">x</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">f</span> <span class="o">:=</span> <span class="nx">f_</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span><span class="p">())</span> <span class="cm">/* 1 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span><span class="p">())</span> <span class="cm">/* 2 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span><span class="p">())</span> <span class="cm">/* 3 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f</span><span class="p">())</span> <span class="cm">/* 4 */</span>
+
+	<span class="nx">f2</span> <span class="o">:=</span> <span class="nx">f_</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">f2</span><span class="p">())</span> <span class="cm">/* 1 */</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="variadic-functions">Variadic Functions</h3>
+
+<p>It is convention in Go that a variadic function name ends with <code>f</code>;
+for example, <code>fmt.Printf()</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">f</span><span class="p">(</span><span class="nx">arr</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;%T %d %d %v\n&#34;</span><span class="p">,</span> <span class="nx">arr</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">arr</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">arr</span><span class="p">),</span> <span class="nx">arr</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">a</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+
+	<span class="nx">f</span><span class="p">()</span>     <span class="cm">/* []int 0 0 [] */</span>
+	<span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="o">...</span><span class="p">)</span> <span class="cm">/* []int 3 3 [1 2 3] */</span>
+	<span class="nx">f</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>    <span class="cm">/* []int 1 1 [0] */</span>
+	<span class="nx">f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="cm">/* []int 2 2 [0 2] */</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="defer">defer</h3>
+
+<p><code>defer xxx()()</code>: <code>xxx()</code> is executed when <code>defer</code> is encountered.
+The last <code>()</code> is called at the end of the function.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">log</span><span class="p">(</span><span class="nx">x</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">result</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;enter&#34;</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">result</span> <span class="o">+=</span> <span class="mi">10</span>
+	<span class="p">}()</span>
+
+	<span class="nx">result</span> <span class="o">+=</span> <span class="nx">x</span>
+	<span class="k">return</span> <span class="nx">result</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+	<span class="cm">/*
+</span><span class="cm">		enter
+</span><span class="cm">		11
+</span><span class="cm">	*/</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The following code shows that <code>defer</code> is called in &ldquo;first in last out&rdquo; manner.
+<code>x</code> is evaluated when <code>defer</code> is encountered.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="mi">1</span>
+	<span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+
+	<span class="nx">x</span> <span class="o">+=</span> <span class="mi">1</span>
+	<span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+
+	<span class="nx">x</span> <span class="o">+=</span> <span class="mi">1</span>
+	<span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+
+	<span class="cm">/*
+</span><span class="cm">		3
+</span><span class="cm">		2
+</span><span class="cm">		1
+</span><span class="cm">	*/</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="panic">panic</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">f3</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;some message&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">f2</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">f3</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">f1</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">f2</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">f1</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>prints the following calling stack information</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">panic: some message
+
+goroutine 1 [running]:
+main.f3(...)
+	/xxx/go/src/hello/hello.go:6
+main.f2(...)
+	/xxx/go/src/hello/hello.go:10
+main.f1(...)
+	/xxx/go/src/hello/hello.go:14
+main.main()
+	/xxx/go/src/hello/hello.go:17 +0x39
+exit status 2</pre></td></tr></table>
 </div>
 </div>
 <h2 id="fmt-printf">fmt.Printf</h2>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>My notes</title>
+  <title>Libraries for Go - My notes</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -25,7 +25,10 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="fangjun" />
-  <meta name="description" content="My notes." />
+  <meta name="description" content=" This post lists some go libraries are useful for me.
+There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
+ awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  " />
+
   <meta name="keywords" content="notes, programming" />
 
 
@@ -36,8 +39,7 @@
 <meta name="generator" content="Hugo 0.49.2" />
 
 
-<link rel="canonical" href="https://csu-fangjun.github.io/" />
-<link href="https://csu-fangjun.github.io/index.xml" rel="alternate" type="application/rss+xml" title="My notes" />
+<link rel="canonical" href="https://csu-fangjun.github.io/post/libraries-for-go/" />
 
 
 
@@ -57,18 +59,32 @@
 
 
 
-<meta property="og:title" content="My notes" />
-<meta property="og:description" content="My notes." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://csu-fangjun.github.io/" />
-<meta property="og:updated_time" content="2018-10-17T22:10:40&#43;08:00"/>
+<meta property="og:title" content="Libraries for Go" />
+<meta property="og:description" content=" This post lists some go libraries are useful for me.
+There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
+ awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csu-fangjun.github.io/post/libraries-for-go/" /><meta property="article:published_time" content="2018-10-17T22:10:40&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-17T22:10:40&#43;08:00"/>
 
-<meta itemprop="name" content="My notes">
-<meta itemprop="description" content="My notes.">
+<meta itemprop="name" content="Libraries for Go">
+<meta itemprop="description" content=" This post lists some go libraries are useful for me.
+There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
+ awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  ">
 
+
+<meta itemprop="datePublished" content="2018-10-17T22:10:40&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-17T22:10:40&#43;08:00" />
+<meta itemprop="wordCount" content="59">
+
+
+
+<meta itemprop="keywords" content="go,golang," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="My notes"/>
-<meta name="twitter:description" content="My notes."/>
+<meta name="twitter:title" content="Libraries for Go"/>
+<meta name="twitter:description" content=" This post lists some go libraries are useful for me.
+There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
+ awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  "/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -269,128 +285,153 @@ if (!doNotTrack) {
     <main id="main" class="main bg-llight">
       <div class="content-wrapper">
         <div id="content" class="content container">
-          
-  <section id="posts" class="posts">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Libraries for Go</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-17 </span>
+        <div class="post-category">
+            <a href="https://csu-fangjun.github.io/categories/development/"> Development </a>
+            <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
+            
+          </div>
+        <span class="more-meta"> 59 words </span>
+          <span class="more-meta"> 1 min read </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
     
     
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#todo">todo</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
     
-      <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/libraries-for-go/">Libraries for Go</a></h1>
+    <div class="post-content">
+      
+
+<p>This post lists some go libraries are useful for me.</p>
+
+<p>There are various packages available at <a href="https://golang.org/pkg/">https://golang.org/pkg/</a>
+<code>golang.org/x/...</code> contains packages under development, for instance,
+<code>golang.org/x/net/html</code>.</p>
+
+<ul>
+<li><a href="https://github.com/avelino/awesome-go">awesome-go</a></li>
+<li><a href="https://github.com/golang/leveldb">leveldb</a></li>
+<li><a href="https://github.com/golang/protobuf">protobuf</a></li>
+<li><a href="https://github.com/golang/net">net</a></li>
+<li><a href="https://github.com/google/netstack">Netstack</a>, the TCP/IP stack in Go</li>
+<li><a href="https://github.com/gonum/gonum">gonum</a>, linear algebra in Go, see its <a href="https://www.gonum.org/">official webpage</a></li>
+<li><a href="https://github.com/disintegration/imaging">imaging</a></li>
+<li><a href="https://github.com/sjwhitworth/golearn">golearn</a>, machine learning in Go</li>
+<li><a href="https://github.com/andlabs/ui">ui</a></li>
+</ul>
+
+<h2 id="todo">todo</h2>
+
+<ul>
+<li><a href="https://github.com/shady831213/algorithms">algorithms</a>, for learning purposes, study its code!</li>
+</ul>
+
+    </div>
+
     
-    <div class="post-meta">
-      <span class="post-time"> 2018-10-17 </span>
-      <div class="post-category">
-          <a href="https://csu-fangjun.github.io/categories/development/"> Development </a>
-          <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">fangjun</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-10-17</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://csu-fangjun.github.io/tags/go/">go</a>
+          <a href="https://csu-fangjun.github.io/tags/golang/">golang</a>
           
         </div>
-      <span class="more-meta"> 59 words </span>
-      <span class="more-meta"> 1 min read </span>
+
       
-      
-    </div>
-  </header>
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/blog-with-hugo/">
+            <span class="next-text nav-default">Blog With Hugo</span>
+            <span class="prev-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
   
-  <div class="post-content">
-    
-    <div class="post-summary">
-       This post lists some go libraries are useful for me.
-There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
- awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  
-    </div>
-    <div class="read-more">
-      <a href="/post/libraries-for-go/" class="read-more-link">Read more</a>
-    </div>
-    
+  
+
+  
+  
+
+  
+
+  
+
+  <div class="disqus-comment">
+  <div class="disqus-button" id="load_disqus" onclick="load_disqus()">
+    Show Disqus Comments
   </div>
-</article>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = "https://csu-fangjun.github.io/post/libraries-for-go/";
+    };
+    function load_disqus() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
 
-    
-      <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/blog-with-hugo/">Blog With Hugo</a></h1>
-    
-    <div class="post-meta">
-      <span class="post-time"> 2018-10-16 </span>
-      
-      <span class="more-meta"> 45 words </span>
-      <span class="more-meta"> 1 min read </span>
-      
-      
-    </div>
-  </header>
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'csu-fangjun';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+      $('#load_disqus').remove();
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
   
-  <div class="post-content">
-    
-    <div class="post-summary">
-      References Sample config Jane Theme Preview 如何在github.io搭建Hugo博客站 如何给自己的博客网站加入评论系统, gitment
-    </div>
-    <div class="read-more">
-      <a href="/post/blog-with-hugo/" class="read-more-link">Read more</a>
-    </div>
-    
   </div>
-</article>
-
-    
-      <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/learning-go/">Learn Go Programming</a></h1>
-    
-    <div class="post-meta">
-      <span class="post-time"> 2018-10-16 </span>
-      <div class="post-category">
-          <a href="https://csu-fangjun.github.io/categories/development/"> Development </a>
-          <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
-          
-        </div>
-      <span class="more-meta"> 3929 words </span>
-      <span class="more-meta"> 8 min read </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    
-    <div class="post-summary">
-      TODO How to write hello world in go Structure of a project packages package initialization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?) Visibility of variables and functions upper case (exported) vs. lower case package level, function level How to define: variables the special variable: _ the initialization value for implicit initialization, i.e., default values primitive data types
-    </div>
-    <div class="read-more">
-      <a href="/post/learning-go/" class="read-more-link">Read more</a>
-    </div>
-    
-  </div>
-</article>
-
-    
-  </section>
-
-  
-  
-
-
-
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-
-
-
 
         </div>
       </div>
