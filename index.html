@@ -61,7 +61,7 @@
 <meta property="og:description" content="My notes." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://csu-fangjun.github.io/" />
-<meta property="og:updated_time" content="2018-10-17T22:10:40&#43;08:00"/>
+<meta property="og:updated_time" content="2018-10-29T20:06:40&#43;08:00"/>
 
 <meta itemprop="name" content="My notes">
 <meta itemprop="description" content="My notes.">
@@ -276,16 +276,79 @@ if (!doNotTrack) {
     
       <article class="post bg-white">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/libraries-for-go/">Libraries for Go</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/image-processing-in-go/">Image Processing in Go</a></h1>
     
     <div class="post-meta">
-      <span class="post-time"> 2018-10-17 </span>
+      <span class="post-time"> 2018-10-29 </span>
       <div class="post-category">
           <a href="https://csu-fangjun.github.io/categories/development/"> Development </a>
           <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
           
         </div>
-      <span class="more-meta"> 59 words </span>
+      <span class="more-meta"> 366 words </span>
+      <span class="more-meta"> 2 min read </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    
+    <div class="post-summary">
+      The origin is the same with OpenCV and the memory layout is similar to OpenCV except that Go uses RGBA order and it might not be continuous, i.e., there will be some paddings at the end of each row.
+Setup 1  go get -u github.com/disintegration/imaging   The image/color package 1 2 3  type Color interface { RGBA() (r, g, b, a uint32) }   Note that the Color interface has a function RGBA() returning four values, each of which is of type uint32.
+    </div>
+    <div class="read-more">
+      <a href="/post/image-processing-in-go/" class="read-more-link">Read more</a>
+    </div>
+    
+  </div>
+</article>
+
+    
+      <article class="post bg-white">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/protobuf-in-go/">Protobuf in Go</a></h1>
+    
+    <div class="post-meta">
+      <span class="post-time"> 2018-10-28 </span>
+      <div class="post-category">
+          <a href="https://csu-fangjun.github.io/categories/development/"> Development </a>
+          <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
+          
+        </div>
+      <span class="more-meta"> 803 words </span>
+      <span class="more-meta"> 4 min read </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    
+    <div class="post-summary">
+      Setup 1 2 3 4 5  go get -u github.com/golang/protobuf/protoc-gen-go mkdir ~/go/src/hello mkdir ~/go/src/hello_protobuf cd ~/go/src/hello_protobuf touch hello.proto   hello.proto 1 2 3 4 5 6 7 8 9 10 11 12 13 14  syntax = &#34;proto2&#34;;package hello_protobuf;enum Foo { x = 1; Y = 2;};message Student { required int32 id = 1; optional int32 age = 2 [default=10]; optional string name = 3; repeated int64 grades = 4;};   Then run
+    </div>
+    <div class="read-more">
+      <a href="/post/protobuf-in-go/" class="read-more-link">Read more</a>
+    </div>
+    
+  </div>
+</article>
+
+    
+      <article class="post bg-white">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/errors-in-go/">Errors in Go</a></h1>
+    
+    <div class="post-meta">
+      <span class="post-time"> 2018-10-28 </span>
+      <div class="post-category">
+          <a href="https://csu-fangjun.github.io/categories/development/"> Development </a>
+          <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
+          
+        </div>
+      <span class="more-meta"> 181 words </span>
       <span class="more-meta"> 1 min read </span>
       
       
@@ -295,12 +358,14 @@ if (!doNotTrack) {
   <div class="post-content">
     
     <div class="post-summary">
-       This post lists some go libraries are useful for me.
-There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
- awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  
+      Introduction This post contains my notes for error handling in Go.
+The Type: error error is a built-in interface type in Go.
+It is defined as follows (you cannot find it in the source code!):
+1 2 3  type error interface { Error() string }   Even if error begins with lower case, it is accessible by others just like types int, int16, etc.
+The Package: errors The package errors contains 3 files:
     </div>
     <div class="read-more">
-      <a href="/post/libraries-for-go/" class="read-more-link">Read more</a>
+      <a href="/post/errors-in-go/" class="read-more-link">Read more</a>
     </div>
     
   </div>
@@ -309,12 +374,15 @@ There are various packages available at https://golang.org/pkg/ golang.org/x/...
     
       <article class="post bg-white">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/blog-with-hugo/">Blog With Hugo</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/kun-ju/">昆剧</a></h1>
     
     <div class="post-meta">
-      <span class="post-time"> 2018-10-16 </span>
-      
-      <span class="more-meta"> 45 words </span>
+      <span class="post-time"> 2018-10-27 </span>
+      <div class="post-category">
+          <a href="https://csu-fangjun.github.io/categories/%E6%98%86%E5%89%A7/"> 昆剧 </a>
+          
+        </div>
+      <span class="more-meta"> 46 words </span>
       <span class="more-meta"> 1 min read </span>
       
       
@@ -324,10 +392,10 @@ There are various packages available at https://golang.org/pkg/ golang.org/x/...
   <div class="post-content">
     
     <div class="post-summary">
-      References Sample config Jane Theme Preview 如何在github.io搭建Hugo博客站 如何给自己的博客网站加入评论系统, gitment
+      牡丹亭 桃花扇 朱买臣休妻 血冤 白罗衫 玉簪记 焚香记 看钱奴 绣襦记 窦娥冤 小孙屠 绿牡丹 1699 桃花扇 梁祝 南柯梦
     </div>
     <div class="read-more">
-      <a href="/post/blog-with-hugo/" class="read-more-link">Read more</a>
+      <a href="/post/kun-ju/" class="read-more-link">Read more</a>
     </div>
     
   </div>
@@ -336,17 +404,16 @@ There are various packages available at https://golang.org/pkg/ golang.org/x/...
     
       <article class="post bg-white">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/learning-go/">Learn Go Programming</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/machine-learning/">Machine Learning</a></h1>
     
     <div class="post-meta">
-      <span class="post-time"> 2018-10-16 </span>
+      <span class="post-time"> 2018-10-25 </span>
       <div class="post-category">
           <a href="https://csu-fangjun.github.io/categories/development/"> Development </a>
-          <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
           
         </div>
-      <span class="more-meta"> 3929 words </span>
-      <span class="more-meta"> 8 min read </span>
+      <span class="more-meta"> 382 words </span>
+      <span class="more-meta"> 2 min read </span>
       
       
     </div>
@@ -355,10 +422,10 @@ There are various packages available at https://golang.org/pkg/ golang.org/x/...
   <div class="post-content">
     
     <div class="post-summary">
-      TODO How to write hello world in go Structure of a project packages package initialization function: func init() {...} which is called automatically when it is imported by others (how many times is it called?) Visibility of variables and functions upper case (exported) vs. lower case package level, function level How to define: variables the special variable: _ the initialization value for implicit initialization, i.e., default values primitive data types
+      The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.org, 2003 The Expectation Maximization Algorithm A short tutorial http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf  Tutorials  murphy-gaussians: http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf  Courses Deep Learning  Masterpraktikum, Deep Learning Lab, Uni Freiburg, WS 2018&frasl;19  code at github: https://github.com/aisrobots/dl-lab-2018  Deep Learning Course, Control Section, Uni Freiburg, WS16/17  code at github: https://github.
     </div>
     <div class="read-more">
-      <a href="/post/learning-go/" class="read-more-link">Read more</a>
+      <a href="/post/machine-learning/" class="read-more-link">Read more</a>
     </div>
     
   </div>
@@ -384,6 +451,26 @@ There are various packages available at https://golang.org/pkg/ golang.org/x/...
 
   
   
+
+  
+  
+  <nav class="pagination">
+    <ul>
+      
+      <li  class="active" >
+        <a href="/">1</a>
+      </li>
+      
+      <li >
+        <a href="/page/2/">2</a>
+      </li>
+      
+      <li >
+        <a href="/page/3/">3</a>
+      </li>
+      
+    </ul>
+  </nav>
 
   
   

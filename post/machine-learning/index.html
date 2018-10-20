@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Machine Learning - My notes</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="fangjun" />
+  <meta name="description" content="The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.org, 2003 The Expectation Maximization Algorithm A short tutorial http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf  Tutorials  murphy-gaussians: http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf  Courses Deep Learning  Masterpraktikum, Deep Learning Lab, Uni Freiburg, WS 2018&amp;frasl;19  code at github: https://github.com/aisrobots/dl-lab-2018  Deep Learning Course, Control Section, Uni Freiburg, WS16/17  code at github: https://github." />
+
+  <meta name="keywords" content="notes, programming" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.49.2" />
+
+
+<link rel="canonical" href="https://csu-fangjun.github.io/post/machine-learning/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Machine Learning" />
+<meta property="og:description" content="The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.org, 2003 The Expectation Maximization Algorithm A short tutorial http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf  Tutorials  murphy-gaussians: http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf  Courses Deep Learning  Masterpraktikum, Deep Learning Lab, Uni Freiburg, WS 2018&frasl;19  code at github: https://github.com/aisrobots/dl-lab-2018  Deep Learning Course, Control Section, Uni Freiburg, WS16/17  code at github: https://github." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://csu-fangjun.github.io/post/machine-learning/" /><meta property="article:published_time" content="2018-10-25T16:13:09&#43;08:00"/>
+<meta property="article:modified_time" content="2018-10-25T16:13:09&#43;08:00"/>
+
+<meta itemprop="name" content="Machine Learning">
+<meta itemprop="description" content="The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.org, 2003 The Expectation Maximization Algorithm A short tutorial http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf  Tutorials  murphy-gaussians: http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf  Courses Deep Learning  Masterpraktikum, Deep Learning Lab, Uni Freiburg, WS 2018&frasl;19  code at github: https://github.com/aisrobots/dl-lab-2018  Deep Learning Course, Control Section, Uni Freiburg, WS16/17  code at github: https://github.">
+
+
+<meta itemprop="datePublished" content="2018-10-25T16:13:09&#43;08:00" />
+<meta itemprop="dateModified" content="2018-10-25T16:13:09&#43;08:00" />
+<meta itemprop="wordCount" content="382">
+
+
+
+<meta itemprop="keywords" content="machine_learning," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Machine Learning"/>
+<meta name="twitter:description" content="The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.org, 2003 The Expectation Maximization Algorithm A short tutorial http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf  Tutorials  murphy-gaussians: http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf  Courses Deep Learning  Masterpraktikum, Deep Learning Lab, Uni Freiburg, WS 2018&frasl;19  code at github: https://github.com/aisrobots/dl-lab-2018  Deep Learning Course, Control Section, Uni Freiburg, WS16/17  code at github: https://github."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-127562009-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Notes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://csu-fangjun.github.io/">Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://csu-fangjun.github.io/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://csu-fangjun.github.io/tags/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://csu-fangjun.github.io/categories/">Categories</a>
+          
+        
+      </li>
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      Notes
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://csu-fangjun.github.io/">Home</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://csu-fangjun.github.io/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://csu-fangjun.github.io/tags/">Tags</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://csu-fangjun.github.io/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Machine Learning</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-25 </span>
+        <div class="post-category">
+            <a href="https://csu-fangjun.github.io/categories/development/"> Development </a>
+            
+          </div>
+        <span class="more-meta"> 382 words </span>
+          <span class="more-meta"> 2 min read </span>
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#the-em-algorithm">The EM Algorithm</a></li>
+<li><a href="#tutorials">Tutorials</a></li>
+</ul></li>
+<li><a href="#courses">Courses</a>
+<ul>
+<li><a href="#deep-learning">Deep Learning</a></li>
+<li><a href="#machine-learning">Machine Learning</a></li>
+<li><a href="#computer-vision">Computer Vision</a></li>
+<li><a href="#robotics">Robotics</a></li>
+<li><a href="#computer-graphics">Computer Graphics</a></li>
+</ul></li>
+<li><a href="#papers">Papers</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h2 id="the-em-algorithm">The EM Algorithm</h2>
+
+<ul>
+<li>first presented in the paper <a href="http://www.eng.auburn.edu/~troppel/courses/7970%202015A%20AdvMobRob%20sp15/literature/paper%20W%20refs/dempster%20EM%201977.pdf">Maximum likelihood from incomplete data via the EM algorithm</a> in 1977</li>
+<li>lecture notes from <a href="http://cs229.stanford.edu/notes/cs229-notes8.pdf">cs229</a></li>
+<li><a href="https://arxiv.org/pdf/1105.1476.pdf">EM algorithm and variants: an informal tutorial</a>, a paper from arxiv.org, 2003</li>
+<li><a href="http://www.seanborman.com/publications/EM_algorithm.pdf">The Expectation Maximization Algorithm A short tutorial</a></li>
+<li><a href="http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf">http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf</a></li>
+</ul>
+
+<h2 id="tutorials">Tutorials</h2>
+
+<ul>
+<li>murphy-gaussians: <a href="http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf">http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf</a></li>
+</ul>
+
+<h1 id="courses">Courses</h1>
+
+<h2 id="deep-learning">Deep Learning</h2>
+
+<ul>
+<li><a href="http://ais.informatik.uni-freiburg.de/teaching/ws18/deep_learning_lab/">Masterpraktikum, Deep Learning Lab</a>, Uni Freiburg, WS <sup>2018</sup>&frasl;<sub>19</sub>
+
+<ul>
+<li>code at github: <a href="https://github.com/aisrobots/dl-lab-2018">https://github.com/aisrobots/dl-lab-2018</a></li>
+</ul></li>
+<li><a href="http://ml.informatik.uni-freiburg.de/former/teaching/ws1617/dl.html">Deep Learning Course, Control Section</a>, Uni Freiburg, WS16/17
+
+<ul>
+<li>code at github: <a href="https://github.com/mllfreiburg/dl_lab_2016">https://github.com/mllfreiburg/dl_lab_2016</a></li>
+</ul></li>
+<li><a href="http://cs231n.stanford.edu/">CS231n: Convolutional Neural Networks for Visual Recognition</a>, Uni Stanford, 2018</li>
+<li>a book: <a href="http://neuralnetworksanddeeplearning.com/index.html">Neural Networks and Deep Learning</a>
+
+<ul>
+<li>free online html</li>
+</ul></li>
+</ul>
+
+<h2 id="machine-learning">Machine Learning</h2>
+
+<ul>
+<li><a href="http://www.inf.ed.ac.uk/teaching/courses/mlp/lectures-2018.html">Machine learning practical (MLP) 2018-19: lectures</a>, 2018, the university</li>
+<li><a href="https://vision.in.tum.de/teaching/ws2018/ml4cv">Machine Learning for Computer Vision (IN2357) (2h + 2h, 5ECTS)</a>, TUM, ws2018</li>
+</ul>
+
+<h2 id="computer-vision">Computer Vision</h2>
+
+<ul>
+<li><a href="http://www.cse.psu.edu/~rtc12/CSE586/">CSE586/EE554 Computer Vision II</a>, Penn State University, 2015
+of Edinburgh, and <a href="http://www.inf.ed.ac.uk/teaching/courses/mlp/lectures-2017.html">2017</a> and <a href="https://github.com/CSTR-Edinburgh/mlpractical">github</a></li>
+<li><a href="http://www-inst.eecs.berkeley.edu/~ee290t/fa09/">EE290T, Fall 2009 Advanced Topics in Signal Processing: 3D image processing and Computer Vision</a>, berkeley</li>
+
+<li><p><a href="http://www.math.louisville.edu/~pksaho01/teaching/">Multiple View Geometry in Computer Vision</a>, 2009, lecture slides;
+its follows the classic book by Prof. Zisserman. lecture1&ndash;lecture23.pdf</p>
+
+<ul>
+<li>lecture 2 and lecture 1 are combined into lecture1.pdf</li>
+</ul></li>
+
+<li><p><a href="https://vision.in.tum.de/teaching/ss2018/mvg2018">Computer Vision II: Multiple View Geometry (IN2228)</a>, mvg underline lowercase SS18</p></li>
+
+<li><p><a href="https://vision.in.tum.de/teaching/ws2018/cvvm_ws2018">Computer Vision I: Variational Methods</a>, cvvm underline lowercase WS18</p></li>
+
+<li><p><a href="https://vision.in.tum.de/teaching/ws2018/visnav_ws2018">Practical Course: Vision-based Navigation IN2106</a>, ws18</p></li>
+
+<li><p><a href="http://www.cse.psu.edu/~rtc12/CSE486/">CSE/EE486 Computer Vision I</a>, 2012, Penn State University</p></li>
+
+<li><p><a href="http://www.cse.psu.edu/~rtc12/CSE586/indexSpring11.html">CSE586/EE554 Computer Vision II</a>, 2011, Penn State University</p></li>
+
+<li><p><a href="http://www.cse.psu.edu/~rtc12/CSE598C/">CSE598C Vision-Based Tracking</a>, 2012, Penn State University</p></li>
+
+<li><p><a href="http://www.cs.ucf.edu/~bagci/teaching/computervision17.html">CAP5415-Computer Vision (FALL 2017)</a>, 2017</p></li>
+
+<li><p><a href="https://www8.cs.umu.se/kurser/TDBD19/VT05/">Geometric Image Analysis, VT-05</a>, 2005, a good summary of the book MVG</p>
+
+<ul>
+<li><a href="https://www8.cs.umu.se/kurser/TDBD19/VT05/tentor/checklist-before-exam.pdf">Checklist before exam on the course</a></li>
+</ul></li>
+
+<li><p><a href="https://vision.in.tum.de/teaching/ss2015/autonavx">Autonomous Navigation for Flying Robots (EdX course, 2 ECTS)</a></p></li>
+
+<li><p><a href="https://vision.in.tum.de/teaching/ws2015/visnav_ws2015">Practical Course: Vision-based Navigation (6h SWS / 10 ECTS)</a>, visnav underline lowercase ws15</p></li>
+
+<li><p><a href="https://vision.in.tum.de/teaching/ss2013/visnav2013">Visual Navigation for Flying Robots</a>, no password! 2013</p>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=z3dW2f7EbjY&amp;index=5&amp;list=PLTBdjV_4f-EKBCUs1HmMtsnXv4JUoFrzg">Autonomous Navigation for Flying Robots</a>, youtube</li>
+</ul></li>
+
+<li><p><a href="https://www.cs.cmu.edu/afs/cs.cmu.edu/academic/class/16311/www/s18/syllabus/syllabus.html">16-311 Introduction to Robotics</a>, CMU, 2018</p></li>
+
+<li><p><a href="https://vision.in.tum.de/teaching/ss2013/ml_ss13">Machine Learning for Robotics and Computer Vision</a>, 2013</p></li>
+</ul>
+
+<h2 id="robotics">Robotics</h2>
+
+<ul>
+<li><a href="http://www.dis.uniroma1.it/~grisetti/teaching/probabilistic_robotics_2016_17/web/">Probabilistic Robotics</a> at Università di Roma, <sup>2016</sup>&frasl;<sub>17</sub>
+
+<ul>
+<li>with code</li>
+</ul></li>
+<li><a href="https://courses.cs.washington.edu/courses/cse571/16au/">CSE 571: Robotics</a> at Uni Washington, 2016
+
+<ul>
+<li>with code</li>
+</ul></li>
+<li><a href="http://ais.informatik.uni-freiburg.de/teaching/ss18/robotics/">Introduction to Mobile Robotics - SS 2018</a>, Uni Freiburg
+
+<ul>
+<li>one of the authors of the book!</li>
+<li>lecture slides/videos/assignments are online available</li>
+</ul></li>
+<li><a href="http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/">Robot Mapping - WS <sup>2017</sup>&frasl;<sub>18</sub></a> at Uni Freiburg
+
+<ul>
+<li>and <a href="http://ais.informatik.uni-freiburg.de/teaching/ws18/mapping/">WS18/19</a></li>
+</ul></li>
+</ul>
+
+<h2 id="computer-graphics">Computer Graphics</h2>
+
+<ul>
+<li><a href="https://cg.informatik.uni-freiburg.de/teaching.htm#material">Image Processing and Computer Graphics</a>, WS18/19, Uni Freiburg</li>
+</ul>
+
+<h1 id="papers">Papers</h1>
+
+<ul>
+<li><a href="https://pdfs.semanticscholar.org/bb9e/b6581e9d8820c2a10675b81dbd0338c60afb.pdf">Visual navigation for mobile robots: A survey</a>, 2008</li>
+<li><a href="https://www.researchgate.net/profile/Jose_Ascencio/publication/234081012_Visual_Simultaneous_Localization_and_Mapping_A_Survey/links/55383e610cf247b8587d3d58/Visual-Simultaneous-Localization-and-Mapping-A-Survey.pdf">Visual simultaneous localization and mapping: a survey</a>, 2015</li>
+<li><a href="https://www.researchgate.net/profile/Daniel_Asmar/publication/304787224_A_survey_on_non-filter-based_monocular_Visual_SLAM_systems/links/57da713908ae4e6f18424c23.pdf">A survey on non-filter-based monocular visual SLAM systems</a>, 2016</li>
+</ul>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">fangjun</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-10-25</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://csu-fangjun.github.io/tags/machine_learning/">machine_learning</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/kun-ju/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">昆剧</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/driver-license/">
+            <span class="next-text nav-default">驾驶证考试备考</span>
+            <span class="prev-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+  <div class="disqus-comment">
+  <div class="disqus-button" id="load_disqus" onclick="load_disqus()">
+    Show Disqus Comments
+  </div>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_config = function () {
+      this.page.url = "https://csu-fangjun.github.io/post/machine-learning/";
+    };
+    function load_disqus() {
+      
+      
+      if (window.location.hostname === 'localhost') return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'csu-fangjun';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+      $('#load_disqus').remove();
+    };
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+  
+  </div>
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fangjun.kuang@gmail.com" rel="me noopener" class="iconfont icon-email"
+        title="email">
+      </a>
+      <a href="https://github.com/csu-fangjun" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+  <a href="https://csu-fangjun.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+  </div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">
+        fangjun
+        
+      </span></span>
+
+  
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

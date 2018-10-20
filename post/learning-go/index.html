@@ -69,7 +69,7 @@
 
 <meta itemprop="datePublished" content="2018-10-16T17:16:33&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-16T17:16:33&#43;08:00" />
-<meta itemprop="wordCount" content="3929">
+<meta itemprop="wordCount" content="4561">
 
 
 
@@ -289,8 +289,8 @@ if (!doNotTrack) {
             <a href="https://csu-fangjun.github.io/categories/golang/"> golang </a>
             
           </div>
-        <span class="more-meta"> 3929 words </span>
-          <span class="more-meta"> 8 min read </span>
+        <span class="more-meta"> 4561 words </span>
+          <span class="more-meta"> 10 min read </span>
 
         
         
@@ -325,6 +325,7 @@ if (!doNotTrack) {
 <li><a href="#string">string</a>
 <ul>
 <li><a href="#raw-literal-string">Raw Literal String</a></li>
+<li><a href="#byte-slice-to-string">byte slice to string</a></li>
 </ul></li>
 <li><a href="#array">Array</a></li>
 <li><a href="#slice">Slice</a>
@@ -342,12 +343,26 @@ if (!doNotTrack) {
 <li><a href="#defer">defer</a></li>
 <li><a href="#panic">panic</a></li>
 </ul></li>
+<li><a href="#methods">Methods</a>
+<ul>
+<li><a href="#struct-embedding">struct embedding</a></li>
+<li><a href="#methods-for-builtin-types">methods for builtin types</a></li>
+</ul></li>
+<li><a href="#interface">Interface</a></li>
 <li><a href="#fmt-printf">fmt.Printf</a></li>
 <li><a href="#common-errors">Common Errors</a>
 <ul>
 <li><a href="#name-equivalence-instead-of-structural-equivalence">Name Equivalence instead of Structural Equivalence</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#packages">Packages</a>
+<ul>
+<li><a href="#packages-with-the-same-name">Packages with the same name</a></li>
+<li><a href="#package-initializer">Package Initializer</a></li>
+<li><a href="#download-packages">Download packages</a></li>
+</ul></li>
+<li><a href="#test">Test</a></li>
+<li><a href="#the-unsafe-package">The unsafe Package</a></li>
 </ul>
 </nav>
   </div>
@@ -783,6 +798,40 @@ which are its utf8 encoding. <code>len(&quot;中&quot;)</code> returns 3.</p>
 </span><span class="cm">*/</span></code></pre></td></tr></table>
 </div>
 </div>
+<h3 id="byte-slice-to-string">byte slice to string</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">b</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="sc">&#39;c&#39;</span><span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">s</span> <span class="kt">string</span>
+	<span class="nx">s</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">string</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">b</span><span class="p">))</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="cm">/* abc*/</span>
+
+	<span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;d&#39;</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="cm">/* dbc*/</span>
+
+	<span class="nx">b</span> <span class="p">=</span> <span class="nx">b</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>      <span class="cm">/*a new header is assigned to b, but s still points to the original header*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="cm">/* dbc*/</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Note that <code>s</code> and <code>b</code> shares the same header. The capacity field
+in the header of <code>b</code> is not used by <code>s</code>.</p>
+
 <h2 id="array">Array</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1772,6 +1821,196 @@ main.main()
 exit status 2</pre></td></tr></table>
 </div>
 </div>
+<h2 id="methods">Methods</h2>
+
+<ul>
+<li>What is a receiver in a method
+
+<ul>
+<li>value receiver</li>
+<li>pointer receiver</li>
+</ul></li>
+</ul>
+
+<p>For a value receiver, we can call it with a pointer or with a value; it&rsquo;s
+impossible to change the fields of the receiver even if we use a pointer when
+it is a value receiver.</p>
+
+<p>For a pointer receiver, we can call it either with a value
+or a pointer; we can change the field of the struct even if we use
+a value when it is a pointer receiver.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">S</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">i</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">S</span><span class="p">)</span> <span class="nx">value</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">S</span><span class="p">)</span> <span class="nx">pointer</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">S</span><span class="p">{</span><span class="nx">i</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="cm">/*{1}*/</span>
+
+	<span class="nx">s</span><span class="p">.</span><span class="nx">value</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="cm">/*{1}*/</span>
+
+	<span class="nx">s</span><span class="p">.</span><span class="nx">pointer</span><span class="p">()</span> <span class="cm">/* s.i is changed!*/</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="cm">/*{2}*/</span>
+
+	<span class="nx">p</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">S</span><span class="p">)</span>
+	<span class="nx">p</span><span class="p">.</span><span class="nx">i</span> <span class="p">=</span> <span class="mi">1</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="cm">/*&amp;{1}*/</span>
+
+	<span class="nx">p</span><span class="p">.</span><span class="nx">value</span><span class="p">()</span> <span class="cm">/* p.i is not changed! */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="cm">/*&amp;{1}*/</span>
+
+	<span class="nx">p</span><span class="p">.</span><span class="nx">pointer</span><span class="p">()</span> <span class="cm">/* p.i is changed! */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="cm">/*&amp;{2}*/</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="struct-embedding">struct embedding</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Point2</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">x</span> <span class="kt">int</span>
+	<span class="nx">y</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Point3</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Point2</span>
+	<span class="nx">z</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// p := Point3{1, 2, 3}	/* compile error */
+</span><span class="c1"></span>
+	<span class="kd">var</span> <span class="nx">p</span> <span class="nx">Point3</span>
+	<span class="nx">p</span><span class="p">.</span><span class="nx">x</span> <span class="p">=</span> <span class="mi">1</span>
+	<span class="nx">p</span><span class="p">.</span><span class="nx">y</span> <span class="p">=</span> <span class="mi">2</span>
+	<span class="nx">p</span><span class="p">.</span><span class="nx">z</span> <span class="p">=</span> <span class="mi">3</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span> <span class="cm">/* 1 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span> <span class="cm">/* 2 */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">z</span><span class="p">)</span> <span class="cm">/* 3 */</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">Point3</span><span class="p">{</span>
+		<span class="nx">Point2</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span>
+		<span class="mi">3</span><span class="p">,</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>        <span class="cm">/* {{1 2} 3} */</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">Point2</span><span class="p">)</span> <span class="cm">/* {1 2} */</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="methods-for-builtin-types">methods for builtin types</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">myInt</span> <span class="kt">int</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">*</span><span class="nx">myInt</span><span class="p">)</span> <span class="nx">inc</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="o">*</span><span class="nx">i</span> <span class="p">=</span> <span class="o">*</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">myInt</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">i</span> <span class="nx">myInt</span>
+	<span class="nx">i</span> <span class="p">=</span> <span class="mi">2</span>
+	<span class="nx">i</span><span class="p">.</span><span class="nx">inc</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="cm">/* 5 */</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="interface">Interface</h2>
+
+<p>It is similar to the abstract class concept in C++. We must implement all
+functions inside the interface; otherwise it is still an abstract class.</p>
+
 <h2 id="fmt-printf">fmt.Printf</h2>
 
 <p>Example code and its output:</p>
@@ -1866,6 +2105,150 @@ results in a compile time error:</p>
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Int</span> <span class="kt">int</span>
 <span class="kd">var</span> <span class="nx">a</span> <span class="nx">Int</span>
 <span class="kd">var</span> <span class="nx">b</span> <span class="kt">int</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>  <span class="o">/*</span> <span class="nx">now</span> <span class="nx">no</span> <span class="kt">error</span> <span class="nx">occurs</span><span class="p">!</span></code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="packages">Packages</h1>
+
+<h2 id="packages-with-the-same-name">Packages with the same name</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;a/foo&#34;</span>
+	<span class="nx">bfoo</span> <span class="s">&#34;b/foo&#34;</span>
+<span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><code>foo.someFunc()</code> refers to <code>someFunc()</code> in <code>a/foo</code></li>
+<li><code>bfoo.bar()</code> refers to <code>bar()</code> in <code>b/foo</code></li>
+</ul>
+
+<h2 id="package-initializer">Package Initializer</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="cm">/*bla bla...*/</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The name has to be <code>init()</code>, which is executed when the package is imported
+by another package.</p>
+
+<h2 id="download-packages">Download packages</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sh" data-lang="sh">go get github.com/xxx/yyy</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="test">Test</h1>
+
+<p>Create a file <code>hello.go</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">hello</span>
+
+<span class="kd">func</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Create another file <code>add_test.go</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">hello</span>
+
+<span class="kn">import</span> <span class="s">&#34;testing&#34;</span>
+
+<span class="kd">func</span> <span class="nx">TestMyAdd</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&#34;error msg1&#34;</span><span class="p">)</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&#34;error msg2&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&#34;error agian&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">TestAdd</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="kc">true</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&#34;it is an error!&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&#34;error2&#34;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Run the command <code>go test</code>, which outputs</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">--- FAIL: TestMyAdd (0.00s)
+    add_test.go:7: error msg1
+    add_test.go:8: error msg2
+    add_test.go:10: error agian
+--- FAIL: TestAdd (0.00s)
+    add_test.go:15: it is an error!
+    add_test.go:17: error2
+FAIL
+exit status 1
+FAIL	hello	0.005s</pre></td></tr></table>
+</div>
+</div>
+<h1 id="the-unsafe-package">The unsafe Package</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"></code></pre></td></tr></table>
 </div>
 </div><div class="footnotes">
 

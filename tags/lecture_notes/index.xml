@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lecture_notes on My notes</title>
+    <link>https://csu-fangjun.github.io/tags/lecture_notes/</link>
+    <description>Recent content in Lecture_notes on My notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 20 Oct 2018 21:41:38 +0800</lastBuildDate>
+    
+	<atom:link href="https://csu-fangjun.github.io/tags/lecture_notes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Lecture Notes</title>
+      <link>https://csu-fangjun.github.io/post/lecture-notes/</link>
+      <pubDate>Sat, 20 Oct 2018 21:41:38 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/lecture-notes/</guid>
+      <description> Data Structures and Algorithms  CMSC 420: Data Structures, 123 pages, year 2001, University of Maryland, by Prof. David Mount
+ CMSC 420 Data Structures Spring 2001 CMSC 420 Data Structures, Fall Draft 2016  CS 97SI: Introduction to Programming Contests, stanford
+  </description>
+    </item>
+    
+  </channel>
+</rss>

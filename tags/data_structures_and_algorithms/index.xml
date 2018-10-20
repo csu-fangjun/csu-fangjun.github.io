@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data_structures_and_algorithms on My notes</title>
+    <link>https://csu-fangjun.github.io/tags/data_structures_and_algorithms/</link>
+    <description>Recent content in Data_structures_and_algorithms on My notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 21 Oct 2018 08:27:20 +0800</lastBuildDate>
+    
+	<atom:link href="https://csu-fangjun.github.io/tags/data_structures_and_algorithms/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data Structures and Algorithms</title>
+      <link>https://csu-fangjun.github.io/post/data-structures-and-algorithms/</link>
+      <pubDate>Sun, 21 Oct 2018 08:27:20 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/data-structures-and-algorithms/</guid>
+      <description>Trees Binary Search Trees  BST: Binary Search Tree how to build a BST operations: search, insert, and delete an item complexity of every operation  Balanced BST  motivation to balance a binary tree also known as AVL trees, AVL stands for two people: Adelson-Velskii and Landis and was proposed in 1962 in the paper An algorithm for the organization of information also known as height balanced tree advantages: search disadvantages: insert and delete how to merge and split?</description>
+    </item>
+    
+  </channel>
+</rss>

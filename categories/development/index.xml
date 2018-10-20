@@ -6,10 +6,71 @@
     <description>Recent content in Development on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 17 Oct 2018 22:10:40 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Oct 2018 20:06:40 +0800</lastBuildDate>
     
 	<atom:link href="https://csu-fangjun.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Image Processing in Go</title>
+      <link>https://csu-fangjun.github.io/post/image-processing-in-go/</link>
+      <pubDate>Mon, 29 Oct 2018 20:06:40 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/image-processing-in-go/</guid>
+      <description>The origin is the same with OpenCV and the memory layout is similar to OpenCV except that Go uses RGBA order and it might not be continuous, i.e., there will be some paddings at the end of each row.
+Setup 1  go get -u github.com/disintegration/imaging   The image/color package 1 2 3  type Color interface { RGBA() (r, g, b, a uint32) }   Note that the Color interface has a function RGBA() returning four values, each of which is of type uint32.</description>
+    </item>
+    
+    <item>
+      <title>Protobuf in Go</title>
+      <link>https://csu-fangjun.github.io/post/protobuf-in-go/</link>
+      <pubDate>Sun, 28 Oct 2018 16:04:01 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/protobuf-in-go/</guid>
+      <description>Setup 1 2 3 4 5  go get -u github.com/golang/protobuf/protoc-gen-go mkdir ~/go/src/hello mkdir ~/go/src/hello_protobuf cd ~/go/src/hello_protobuf touch hello.proto   hello.proto 1 2 3 4 5 6 7 8 9 10 11 12 13 14  syntax = &amp;#34;proto2&amp;#34;;package hello_protobuf;enum Foo { x = 1; Y = 2;};message Student { required int32 id = 1; optional int32 age = 2 [default=10]; optional string name = 3; repeated int64 grades = 4;};   Then run</description>
+    </item>
+    
+    <item>
+      <title>Errors in Go</title>
+      <link>https://csu-fangjun.github.io/post/errors-in-go/</link>
+      <pubDate>Sun, 28 Oct 2018 15:12:34 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/errors-in-go/</guid>
+      <description>Introduction This post contains my notes for error handling in Go.
+The Type: error error is a built-in interface type in Go.
+It is defined as follows (you cannot find it in the source code!):
+1 2 3  type error interface { Error() string }   Even if error begins with lower case, it is accessible by others just like types int, int16, etc.
+The Package: errors The package errors contains 3 files:</description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>https://csu-fangjun.github.io/post/machine-learning/</link>
+      <pubDate>Thu, 25 Oct 2018 16:13:09 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/machine-learning/</guid>
+      <description>The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.org, 2003 The Expectation Maximization Algorithm A short tutorial http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf  Tutorials  murphy-gaussians: http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf  Courses Deep Learning  Masterpraktikum, Deep Learning Lab, Uni Freiburg, WS 2018&amp;frasl;19  code at github: https://github.com/aisrobots/dl-lab-2018  Deep Learning Course, Control Section, Uni Freiburg, WS16/17  code at github: https://github.</description>
+    </item>
+    
+    <item>
+      <title>Data Structures and Algorithms</title>
+      <link>https://csu-fangjun.github.io/post/data-structures-and-algorithms/</link>
+      <pubDate>Sun, 21 Oct 2018 08:27:20 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/data-structures-and-algorithms/</guid>
+      <description>Trees Binary Search Trees  BST: Binary Search Tree how to build a BST operations: search, insert, and delete an item complexity of every operation  Balanced BST  motivation to balance a binary tree also known as AVL trees, AVL stands for two people: Adelson-Velskii and Landis and was proposed in 1962 in the paper An algorithm for the organization of information also known as height balanced tree advantages: search disadvantages: insert and delete how to merge and split?</description>
+    </item>
+    
+    <item>
+      <title>Lecture Notes</title>
+      <link>https://csu-fangjun.github.io/post/lecture-notes/</link>
+      <pubDate>Sat, 20 Oct 2018 21:41:38 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/lecture-notes/</guid>
+      <description> Data Structures and Algorithms  CMSC 420: Data Structures, 123 pages, year 2001, University of Maryland, by Prof. David Mount
+ CMSC 420 Data Structures Spring 2001 CMSC 420 Data Structures, Fall Draft 2016  CS 97SI: Introduction to Programming Contests, stanford
+  </description>
+    </item>
     
     <item>
       <title>Libraries for Go</title>
@@ -18,7 +79,7 @@
       
       <guid>https://csu-fangjun.github.io/post/libraries-for-go/</guid>
       <description> This post lists some go libraries are useful for me.
-There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
+There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html. https://godoc.org provides an entry to search packages.
  awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  </description>
     </item>
     

@@ -6,10 +6,42 @@
     <description>Recent content in Golang on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 17 Oct 2018 22:10:40 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Oct 2018 20:06:40 +0800</lastBuildDate>
     
 	<atom:link href="https://csu-fangjun.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Image Processing in Go</title>
+      <link>https://csu-fangjun.github.io/post/image-processing-in-go/</link>
+      <pubDate>Mon, 29 Oct 2018 20:06:40 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/image-processing-in-go/</guid>
+      <description>The origin is the same with OpenCV and the memory layout is similar to OpenCV except that Go uses RGBA order and it might not be continuous, i.e., there will be some paddings at the end of each row.
+Setup 1  go get -u github.com/disintegration/imaging   The image/color package 1 2 3  type Color interface { RGBA() (r, g, b, a uint32) }   Note that the Color interface has a function RGBA() returning four values, each of which is of type uint32.</description>
+    </item>
+    
+    <item>
+      <title>Protobuf in Go</title>
+      <link>https://csu-fangjun.github.io/post/protobuf-in-go/</link>
+      <pubDate>Sun, 28 Oct 2018 16:04:01 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/protobuf-in-go/</guid>
+      <description>Setup 1 2 3 4 5  go get -u github.com/golang/protobuf/protoc-gen-go mkdir ~/go/src/hello mkdir ~/go/src/hello_protobuf cd ~/go/src/hello_protobuf touch hello.proto   hello.proto 1 2 3 4 5 6 7 8 9 10 11 12 13 14  syntax = &amp;#34;proto2&amp;#34;;package hello_protobuf;enum Foo { x = 1; Y = 2;};message Student { required int32 id = 1; optional int32 age = 2 [default=10]; optional string name = 3; repeated int64 grades = 4;};   Then run</description>
+    </item>
+    
+    <item>
+      <title>Errors in Go</title>
+      <link>https://csu-fangjun.github.io/post/errors-in-go/</link>
+      <pubDate>Sun, 28 Oct 2018 15:12:34 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/errors-in-go/</guid>
+      <description>Introduction This post contains my notes for error handling in Go.
+The Type: error error is a built-in interface type in Go.
+It is defined as follows (you cannot find it in the source code!):
+1 2 3  type error interface { Error() string }   Even if error begins with lower case, it is accessible by others just like types int, int16, etc.
+The Package: errors The package errors contains 3 files:</description>
+    </item>
     
     <item>
       <title>Libraries for Go</title>
@@ -18,7 +50,7 @@
       
       <guid>https://csu-fangjun.github.io/post/libraries-for-go/</guid>
       <description> This post lists some go libraries are useful for me.
-There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html.
+There are various packages available at https://golang.org/pkg/ golang.org/x/... contains packages under development, for instance, golang.org/x/net/html. https://godoc.org provides an entry to search packages.
  awesome-go leveldb protobuf net Netstack, the TCP/IP stack in Go gonum, linear algebra in Go, see its official webpage imaging golearn, machine learning in Go ui  todo  algorithms, for learning purposes, study its code!  </description>
     </item>
     
