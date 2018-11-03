@@ -6,10 +6,19 @@
     <description>Recent content in Development on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 29 Oct 2018 20:06:40 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 02 Nov 2018 11:04:50 +0800</lastBuildDate>
     
 	<atom:link href="https://csu-fangjun.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Caffe Notes</title>
+      <link>https://csu-fangjun.github.io/post/caffe-notes/</link>
+      <pubDate>Fri, 02 Nov 2018 11:04:50 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/caffe-notes/</guid>
+      <description>tools/caffe.cpp The statement ::gflags::ParseCommandLineFlags(pargc, pargv, true); changes argc. if (argc == 2) { limits the number of arguments to two. Options starting with - or -- do not contribute to the number of arguments. So the only valid argument is train, test, device_query or time. train RegisterBrewFunction(train); registers the train handler which is invoked when ./caffe train is used. Accepted options: --solver Example: --solver=models/bvlc_reference_caffenet/solver.prototxt ReadSolverParamsFromTextFileOrDie() ReadProtoFromTextFile() int fd = open(filename,</description>
+    </item>
     
     <item>
       <title>Image Processing in Go</title>
@@ -49,7 +58,7 @@ The Package: errors The package errors contains 3 files:</description>
       <pubDate>Thu, 25 Oct 2018 16:13:09 +0800</pubDate>
       
       <guid>https://csu-fangjun.github.io/post/machine-learning/</guid>
-      <description>The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.org, 2003 The Expectation Maximization Algorithm A short tutorial http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf  Tutorials  murphy-gaussians: http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf  Courses Deep Learning  Masterpraktikum, Deep Learning Lab, Uni Freiburg, WS 2018&amp;frasl;19  code at github: https://github.com/aisrobots/dl-lab-2018  Deep Learning Course, Control Section, Uni Freiburg, WS16/17  code at github: https://github.</description>
+      <description>Machine Learning Papers  Support-Vector Networks  it proposes SVM with soft margin in 1995.  The use of multiple measurements in taxonomic problems  related to the famous Iris flower dataset in 1936   The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.</description>
     </item>
     
     <item>

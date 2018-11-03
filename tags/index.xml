@@ -6,10 +6,19 @@
     <description>Recent content in Tags on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 21 Oct 2018 08:27:20 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 02 Nov 2018 11:04:50 +0800</lastBuildDate>
     
 	<atom:link href="https://csu-fangjun.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Caffe</title>
+      <link>https://csu-fangjun.github.io/tags/caffe/</link>
+      <pubDate>Fri, 02 Nov 2018 11:04:50 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/tags/caffe/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Data_structures_and_algorithms</title>

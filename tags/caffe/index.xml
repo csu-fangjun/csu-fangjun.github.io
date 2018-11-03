@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Caffe on My notes</title>
+    <link>https://csu-fangjun.github.io/tags/caffe/</link>
+    <description>Recent content in Caffe on My notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 02 Nov 2018 11:04:50 +0800</lastBuildDate>
+    
+	<atom:link href="https://csu-fangjun.github.io/tags/caffe/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Caffe Notes</title>
+      <link>https://csu-fangjun.github.io/post/caffe-notes/</link>
+      <pubDate>Fri, 02 Nov 2018 11:04:50 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/caffe-notes/</guid>
+      <description>tools/caffe.cpp The statement ::gflags::ParseCommandLineFlags(pargc, pargv, true); changes argc. if (argc == 2) { limits the number of arguments to two. Options starting with - or -- do not contribute to the number of arguments. So the only valid argument is train, test, device_query or time. train RegisterBrewFunction(train); registers the train handler which is invoked when ./caffe train is used. Accepted options: --solver Example: --solver=models/bvlc_reference_caffenet/solver.prototxt ReadSolverParamsFromTextFileOrDie() ReadProtoFromTextFile() int fd = open(filename,</description>
+    </item>
+    
+  </channel>
+</rss>

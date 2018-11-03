@@ -17,7 +17,7 @@
       <pubDate>Thu, 25 Oct 2018 16:13:09 +0800</pubDate>
       
       <guid>https://csu-fangjun.github.io/post/machine-learning/</guid>
-      <description>The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.org, 2003 The Expectation Maximization Algorithm A short tutorial http://www.rmki.kfki.hu/~banmi/elte/bishop_em.pdf  Tutorials  murphy-gaussians: http://ais.informatik.uni-freiburg.de/teaching/ws17/mapping/pdf/murphy-gaussians.pdf  Courses Deep Learning  Masterpraktikum, Deep Learning Lab, Uni Freiburg, WS 2018&amp;frasl;19  code at github: https://github.com/aisrobots/dl-lab-2018  Deep Learning Course, Control Section, Uni Freiburg, WS16/17  code at github: https://github.</description>
+      <description>Machine Learning Papers  Support-Vector Networks  it proposes SVM with soft margin in 1995.  The use of multiple measurements in taxonomic problems  related to the famous Iris flower dataset in 1936   The EM Algorithm  first presented in the paper Maximum likelihood from incomplete data via the EM algorithm in 1977 lecture notes from cs229 EM algorithm and variants: an informal tutorial, a paper from arxiv.</description>
     </item>
     
   </channel>
