@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>昆剧 on My notes</title>
-    <link>https://csu-fangjun.github.io/categories/%E6%98%86%E5%89%A7/</link>
-    <description>Recent content in 昆剧 on My notes</description>
+    <title>Drafts on My notes</title>
+    <link>https://csu-fangjun.github.io/draft/</link>
+    <description>Recent content in Drafts on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sat, 27 Oct 2018 22:05:35 +0800</lastBuildDate>
     
-	<atom:link href="https://csu-fangjun.github.io/categories/%E6%98%86%E5%89%A7/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://csu-fangjun.github.io/draft/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Robotics on My notes</title>
+    <link>https://csu-fangjun.github.io/tags/robotics/</link>
+    <description>Recent content in Robotics on My notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 19 Jan 2019 10:46:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://csu-fangjun.github.io/tags/robotics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Computer Vision and Robotics</title>
+      <link>https://csu-fangjun.github.io/post/computer-vision-and-robotics/</link>
+      <pubDate>Sat, 19 Jan 2019 10:46:22 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/post/computer-vision-and-robotics/</guid>
+      <description>Courses  Machine learning practical (MLP) 2018-19: lectures, 2018, the university Machine Learning for Computer Vision (IN2357) (2h + 2h, 5ECTS), TUM, ws2018 CS231A: Computer Vision, From 3D Reconstruction to Recognition 16-385 Computer Vision, Spring 2018, at CMU
+ CSE586/EE554 Computer Vision II, Penn State University, 2015 of Edinburgh, and 2017 and github
+ EE290T, Fall 2009 Advanced Topics in Signal Processing: 3D image processing and Computer Vision, berkeley</description>
+    </item>
+    
+  </channel>
+</rss>

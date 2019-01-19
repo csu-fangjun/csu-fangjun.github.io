@@ -6,53 +6,17 @@
     <description>Recent content in Tags on My notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 02 Nov 2018 11:04:50 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 19 Jan 2019 10:46:22 +0800</lastBuildDate>
     
 	<atom:link href="https://csu-fangjun.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Caffe</title>
-      <link>https://csu-fangjun.github.io/tags/caffe/</link>
-      <pubDate>Fri, 02 Nov 2018 11:04:50 +0800</pubDate>
+      <title>Compute_vision</title>
+      <link>https://csu-fangjun.github.io/tags/compute_vision/</link>
+      <pubDate>Sat, 19 Jan 2019 10:46:22 +0800</pubDate>
       
-      <guid>https://csu-fangjun.github.io/tags/caffe/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Data_structures_and_algorithms</title>
-      <link>https://csu-fangjun.github.io/tags/data_structures_and_algorithms/</link>
-      <pubDate>Sun, 21 Oct 2018 08:27:20 +0800</pubDate>
-      
-      <guid>https://csu-fangjun.github.io/tags/data_structures_and_algorithms/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Go</title>
-      <link>https://csu-fangjun.github.io/tags/go/</link>
-      <pubDate>Mon, 29 Oct 2018 20:06:40 +0800</pubDate>
-      
-      <guid>https://csu-fangjun.github.io/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Golang</title>
-      <link>https://csu-fangjun.github.io/tags/golang/</link>
-      <pubDate>Mon, 29 Oct 2018 20:06:40 +0800</pubDate>
-      
-      <guid>https://csu-fangjun.github.io/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Lecture_notes</title>
-      <link>https://csu-fangjun.github.io/tags/lecture_notes/</link>
-      <pubDate>Sat, 20 Oct 2018 21:41:38 +0800</pubDate>
-      
-      <guid>https://csu-fangjun.github.io/tags/lecture_notes/</guid>
+      <guid>https://csu-fangjun.github.io/tags/compute_vision/</guid>
       <description></description>
     </item>
     
@@ -66,9 +30,18 @@
     </item>
     
     <item>
+      <title>Robotics</title>
+      <link>https://csu-fangjun.github.io/tags/robotics/</link>
+      <pubDate>Sat, 19 Jan 2019 10:46:22 +0800</pubDate>
+      
+      <guid>https://csu-fangjun.github.io/tags/robotics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Writting</title>
       <link>https://csu-fangjun.github.io/tags/writting/</link>
-      <pubDate>Mon, 22 Oct 2018 18:42:26 +0800</pubDate>
+      <pubDate>Tue, 16 Oct 2018 18:28:13 +0800</pubDate>
       
       <guid>https://csu-fangjun.github.io/tags/writting/</guid>
       <description></description>

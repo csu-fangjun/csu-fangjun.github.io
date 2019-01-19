@@ -3,35 +3,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://csu-fangjun.github.io/post/caffe-notes/</loc>
-    <lastmod>2018-11-02T11:04:50+08:00</lastmod>
+    <loc>https://csu-fangjun.github.io/post/computer-vision-and-robotics/</loc>
+    <lastmod>2019-01-19T10:46:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://csu-fangjun.github.io/post/image-processing-in-go/</loc>
-    <lastmod>2018-10-29T20:06:40+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/post/protobuf-in-go/</loc>
-    <lastmod>2018-10-28T16:04:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/post/errors-in-go/</loc>
-    <lastmod>2018-10-28T15:12:34+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/post/kun-ju/</loc>
+    <loc>https://csu-fangjun.github.io/draft/kun-ju/</loc>
     <lastmod>2018-10-27T22:05:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -45,52 +24,10 @@
   </url>
   
   <url>
-    <loc>https://csu-fangjun.github.io/post/driver-license/</loc>
-    <lastmod>2018-10-22T18:42:26+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/post/data-structures-and-algorithms/</loc>
-    <lastmod>2018-10-21T08:27:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/post/lecture-notes/</loc>
-    <lastmod>2018-10-20T21:41:38+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/post/libraries-for-go/</loc>
-    <lastmod>2018-10-17T22:10:40+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://csu-fangjun.github.io/post/blog-with-hugo/</loc>
     <lastmod>2018-10-16T18:28:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/post/learning-go/</loc>
-    <lastmod>2018-10-16T17:16:33+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/tags/caffe/</loc>
-    <lastmod>2018-11-02T11:04:50+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -100,50 +37,22 @@
   </url>
   
   <url>
-    <loc>https://csu-fangjun.github.io/tags/data_structures_and_algorithms/</loc>
-    <lastmod>2018-10-21T08:27:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/categories/deep_learning/</loc>
-    <lastmod>2018-11-02T11:04:50+08:00</lastmod>
+    <loc>https://csu-fangjun.github.io/tags/compute_vision/</loc>
+    <lastmod>2019-01-19T10:46:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://csu-fangjun.github.io/categories/development/</loc>
-    <lastmod>2018-11-02T11:04:50+08:00</lastmod>
+    <lastmod>2019-01-19T10:46:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://csu-fangjun.github.io/tags/go/</loc>
-    <lastmod>2018-10-29T20:06:40+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/tags/golang/</loc>
-    <lastmod>2018-10-29T20:06:40+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/categories/golang/</loc>
-    <lastmod>2018-10-29T20:06:40+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://csu-fangjun.github.io/tags/lecture_notes/</loc>
-    <lastmod>2018-10-20T21:41:38+08:00</lastmod>
+    <loc>https://csu-fangjun.github.io/draft/</loc>
+    <lastmod>2018-10-27T22:05:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -157,28 +66,35 @@
   
   <url>
     <loc>https://csu-fangjun.github.io/</loc>
-    <lastmod>2018-11-02T11:04:50+08:00</lastmod>
+    <lastmod>2019-01-19T10:46:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://csu-fangjun.github.io/post/</loc>
-    <lastmod>2018-11-02T11:04:50+08:00</lastmod>
+    <lastmod>2019-01-19T10:46:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://csu-fangjun.github.io/tags/robotics/</loc>
+    <lastmod>2019-01-19T10:46:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://csu-fangjun.github.io/tags/</loc>
-    <lastmod>2018-11-02T11:04:50+08:00</lastmod>
+    <lastmod>2019-01-19T10:46:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://csu-fangjun.github.io/tags/writting/</loc>
-    <lastmod>2018-10-22T18:42:26+08:00</lastmod>
+    <lastmod>2018-10-16T18:28:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
